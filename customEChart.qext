@@ -1,0 +1,8 @@
+{
+ "name" : "Custom E-charts",
+ "description" : "Custom chart based in e-charts library",
+ "icon" : "extension",
+ "type" : "visualization",
+ "version": "1",
+ "author": "Wederson Domingues"
+}
