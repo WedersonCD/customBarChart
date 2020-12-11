@@ -28,6 +28,10 @@ A custom bar/line chart create based in [echarts library](https://echarts.apache
 
 - color: Define the measure color.
 
+- label color auto: Let Echarts select the right color.
+
+- label color: select label color. (label color auto option must be off) 
+
 
 ### Label Settings
 ------------
