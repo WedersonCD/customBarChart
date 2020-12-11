@@ -1,8 +1,10 @@
 define( [
     'jquery',
-    'https://cdnjs.cloudflare.com/ajax/libs/echarts/4.2.1/echarts.min.js'
+    'https://cdnjs.cloudflare.com/ajax/libs/echarts/4.2.1/echarts.min.js',
+    './properties',
+    'qlik'
 ],
-function ( $, echarts ) {
+function ( $, echarts, props, qlik ) {
 
     function getDimensionArray(layout){
 
@@ -24,11 +26,12 @@ function ( $, echarts ) {
         });
     }
 
-    function getSerieLabel(layout){
+    function getSerieLabel(layout,measurePosition){
 
         settings = layout.settings
 
-        return  {
+        var labelSettings={
+            //color:      'auto',
             show:       settings.label.visibility,
             align:      settings.label.align,
             fontSize:   settings.label.size,
@@ -41,6 +44,15 @@ function ( $, echarts ) {
                 return params.data.valueText;
             }
         }
+        var measureInfo =layout.qHyperCube.qMeasureInfo[measurePosition];
+
+        if(measureInfo.label.auto == false){
+
+            labelSettings.color=measureInfo.label.color.color;
+
+        }
+
+        return labelSettings;
 
     }
 
@@ -58,8 +70,9 @@ function ( $, echarts ) {
         }
     }
 
+    
     function getSerieArray(layout){
-
+        console.log(layout)
         serieArray=[];
 
         var expressionNumber = layout.qHyperCube.qMeasureInfo.length;
@@ -67,7 +80,7 @@ function ( $, echarts ) {
         for(var x=0;x<expressionNumber;x++){
 
             serieArray[x]=getSerieCommumProperty(layout,x)
-            serieArray[x].label=getSerieLabel(layout)
+            serieArray[x].label=getSerieLabel(layout,x)
             serieArray[x].data=getSerieValue(layout,x)
 
         }
@@ -89,7 +102,6 @@ function ( $, echarts ) {
         return expressionTitleArray;
     }
 
-
     function getExpressionColorArray(layout){
 
         var expressionNumber = layout.qHyperCube.qMeasureInfo.length;
@@ -104,6 +116,10 @@ function ( $, echarts ) {
         return expressionColorArray;
 
     }
+    function getDimensionName(layout){
+
+        return layout.qHyperCube.qDimensionInfo[0].qGroupFieldDefs[0];
+    }
 
     return {
         initialProperties: {
@@ -116,204 +132,17 @@ function ( $, echarts ) {
                 }]
             }
         },
-        definition: {
-            type: "items",
-            component: "accordion",
-            items: {
-                dimensions: {
-                    uses: "dimensions",
-                    min: 1,
-                    max: 1
-                },
-                measures: {
-                    uses: "measures",
-                    min: 1,
-                    items:{
-                        Stack:{
-                            ref: "qDef.stack",
-                            label: "stack",
-                            type: "string",
-                            defaultValue: '',
-                            expression: "optional"
-                        },
-                        Type:{
-                            ref: "qDef.type",
-                            label: "type",
-                            type: "string",
-                            component: "dropdown",
-                            defaultValue: 'bar',
-                            options:[{value:"bar",label: "bar"},{value:"line",label:"line"}]
-                        },
-                        Yindex:{
-                            ref: "qDef.yIndex",
-                            label: "y-axis",
-                            type: "string",
-                            component: "dropdown",
-                            defaultValue: '0',
-                            options:[{value:"0",label: "left"},{value:"1",label:"right"}]
-                        },
-                        Color:{
-                            ref: "qDef.color",
-                            component: "color-picker",
-                            label: "color",
-                            type: "object",
-                            defaultValue: {
-                                color: "ff5866",
-                                index: "-1"
-                              }
-                        }
-                        
-                    }
-                },
-                Settings:{
-                    component: "expandable-items",
-                    label: "Settings",
-                    items:{
-                        Label:{
-                            type: "items",
-                            label: "Label",
-                            items: {
-                                LabelVisibility: {
-                                    ref: "settings.label.visibility",
-                                    type: "boolean",
-                                    component: "switch",
-                                    label: "Visibility",
-                                    options: [{
-                                        value: true,
-                                        label: "Show"
-                                    }, {
-                                        value: false,
-                                        label: "Hide"
-                                    }],
-                                    defaultValue: true
-                                },
-                                LabelDistance: {
-                                    ref: "settings.label.distance",
-                                    label: "Distance",
-                                    type: "string",
-                                    defaultValue: 5,
-                                    expression: "optional"
-                                },
-                                LabelRotate: {
-                                    ref: "settings.label.rotate",
-                                    label: "Rotate",
-                                    type: "string",
-                                    defaultValue: 0,
-                                    expression: "optional"
-                                },
-                                LabelPosition:{
-                                    ref: "settings.label.position",
-                                    label: "Position",
-                                    type: "string",
-                                    component: "dropdown",
-                                    defaultValue: 'inside',
-                                    options:[
-                                        {value:"bottom",label:"bottom"},
-                                        {value:"inside",label:"inside"},
-                                        {value:"insideBottom",label:"insideBottom"},
-                                        {value:"insideBottomLeft",label:"insideBottomLeft"},
-                                        {value:"insideBottomRight",label:"insideBottomRight"},
-                                        {value:"insideLeft",label:"insideLeft"},
-                                        {value:"insideRight",label:"insideRight"},
-                                        {value:"insideTop",label:"insideTop"},
-                                        {value:"insideTopLeft",label:"insideTopLeft"},
-                                        {value:"insideTopRight",label:"insideTopRight"},
-                                        {value:"left",label:"left"},
-                                        {value:"right",label:"right"},
-                                        {value:"top",label:"top"}
-                                    ]
-                                },
-                                LabelFontStyle:{
-                                    ref: "settings.label.style",
-                                    label: "Style",
-                                    type: "string",
-                                    component: "dropdown",
-                                    defaultValue: 'normal',
-                                    options:[
-                                        {value:"normal",label:"normal"},
-                                        {value:"italic",label:"italic"},
-                                        {value:"oblique",label:"oblique"}
-                                    ]
-                                },
-                                LabelFontWeight:{
-                                    ref: "settings.label.weight",
-                                    label: "Weight",
-                                    type: "string",
-                                    component: "dropdown",
-                                    defaultValue: 'normal',
-                                    options:[
-                                        {value:"normal",label:"normal"},
-                                        {value:"bold",label:"bold"},
-                                        {value:"bolder",label:"bolder"},
-                                        {value:"lighter",label:"lighter"}
-    
-                                    ]
-                                },
-                                LabelFontSize: {
-                                    ref: "settings.label.size",
-                                    label: "Size",
-                                    type: "string",
-                                    defaultValue: 15,
-                                    expression: "optional"
-                                },
-                                LabelFontAlign:{
-                                    ref: "settings.label.align",
-                                    label: "Align",
-                                    type: "string",
-                                    component: "dropdown",
-                                    defaultValue: 'center',
-                                    options:[
-                                        {value:"left",label:"left"},
-                                        {value:"center",label:"center"},
-                                        {value:"right",label:"right"}
-    
-                                    ]
-                                },
-                            }
-                        },
-                        Bar:{
-                            type: "items",
-                            label: "bar",
-                            items: {
-                                BarGap: {
-                                    ref: "settings.bar.gap",
-                                    label: "Bar Gap",
-                                    type: "string",
-                                    defaultValue: 0,
-                                    expression: "optional"
-                                },
-                            },
-
-                        }
-                    },
-                },
-                addons: {
-                    uses: "addons",
-                    items: {
-                        dataHandling: {
-                            uses: "dataHandling"
-                        },
-                    },
-                },
-                sorting: {
-                    uses: "sorting"
-                },
-                appearance: {
-                    uses: "settings",
-                }
-            }
-        },
+        definition: props,
+        support:{snapshot: true},
         paint: function ( $element, layout ) {
-            
+
             echarts.dispose($element[0]); 
 
-            console.log(layout);
-
             var dimensionArray      = getDimensionArray(layout);
+            var dimensionName      = getDimensionName(layout);
             var serieArray          = getSerieArray(layout);
             var expressionNameArray = getExpressionsNameArray(layout)
             var expressionColorArray = getExpressionColorArray(layout)
-            console.log(serieArray)
 
             
             var myChart = echarts.init($element[0]); 
@@ -341,6 +170,13 @@ function ( $, echarts ) {
             }; 
        
             myChart.setOption(option);
+
+
+            myChart.on('click', function (params) {
+                qlik.currApp(this).field(dimensionName).selectValues([params.name],true,true)
+
+
+            });
 
         },
         resize: function($element) {
