@@ -32,23 +32,23 @@ function ( $, echarts, props, qlik ) {
 
         var labelSettings={
             //color:      'auto',
-            show:       settings.label.visibility,
-            align:      settings.label.align,
-            fontSize:   settings.label.size,
-            fontWeight: settings.label.weight,
-            fontStyle:  settings.label.style,
-            position:   settings.label.position,
-            distance:   settings.label.distance,
-            rotate:      settings.label.rotate,
+            show:       settings.dataLabel.visibility,
+            align:      settings.dataLabel.align,
+            fontSize:   settings.dataLabel.size,
+            fontWeight: settings.dataLabel.weight,
+            fontStyle:  settings.dataLabel.style,
+            position:   settings.dataLabel.position,
+            distance:   settings.dataLabel.distance,
+            rotate:      settings.dataLabel.rotate,
             formatter: function (params) {
                 return params.data.valueText;
             }
         }
         var measureInfo =layout.qHyperCube.qMeasureInfo[measurePosition];
 
-        if(measureInfo.label.auto == false){
+        if(measureInfo.dataLabel.auto == false){
 
-            labelSettings.color=measureInfo.label.color.color;
+            labelSettings.color=measureInfo.dataLabel.color.color;
 
         }
 
@@ -56,6 +56,23 @@ function ( $, echarts, props, qlik ) {
 
     }
 
+    function getAxisLabel(layout){
+
+        settings = layout.settings
+
+        var labelSettings={
+            color:      settings.axisLabel.color.color,
+            show:       settings.axisLabel.visibility,
+            align:      settings.axisLabel.align,
+            fontSize:   settings.axisLabel.size,
+            fontWeight: settings.axisLabel.weight,
+            fontStyle:  settings.axisLabel.style,
+            rotate:     settings.axisLabel.rotate
+        }
+
+        return labelSettings;
+
+    }
     function getSerieCommumProperty(layout,measurePosition){
 
         var measureInfo =layout.qHyperCube.qMeasureInfo[measurePosition];
@@ -138,12 +155,12 @@ function ( $, echarts, props, qlik ) {
 
             echarts.dispose($element[0]); 
 
-            var dimensionArray      = getDimensionArray(layout);
-            var dimensionName      = getDimensionName(layout);
-            var serieArray          = getSerieArray(layout);
-            var expressionNameArray = getExpressionsNameArray(layout)
-            var expressionColorArray = getExpressionColorArray(layout)
-
+            var dimensionArray          = getDimensionArray(layout);
+            var dimensionName           = getDimensionName(layout);
+            var serieArray              = getSerieArray(layout);
+            var expressionNameArray     = getExpressionsNameArray(layout)
+            var expressionColorArray    = getExpressionColorArray(layout)
+            var axisLabel               = getAxisLabel(layout)
             
             var myChart = echarts.init($element[0]); 
 
@@ -152,18 +169,23 @@ function ( $, echarts, props, qlik ) {
                         legend: {
                             data: expressionNameArray
                         },
-                        dataZoom: [        {
-                            id: 'dataZoomX',
-                            type: 'slider',
-                            xAxisIndex: [0],
-                            filterMode: 'filter'
-                        },],
+                        dataZoom: [
+                            {
+                                id: 'dataZoomX',
+                                type: 'slider',
+                                xAxisIndex: 0,
+                                filterMode: 'empty',
+                                start: 10
+                            }
+                        ],
                         grid: {
+                            containLabel: true,
                             left: '0%',
                             right: '0%'
                         },
                         xAxis: {
-                           data: dimensionArray 
+                           data: dimensionArray,
+                           axisLabel: axisLabel
                         }, 
                         yAxis: [{ show: false},{ show: false}],
                        series: serieArray

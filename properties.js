@@ -46,8 +46,8 @@ define( [], function () {
                             index: "-1"
                           }
                     },
-                    LabelVisibility: {
-                        ref: "qDef.label.auto",
+                    LabelAutoColor: {
+                        ref: "qDef.dataLabel.auto",
                         type: "boolean",
                         component: "switch",
                         label: "Label Color Auto",
@@ -61,7 +61,7 @@ define( [], function () {
                         defaultValue: true
                     },
                     LabelColor:{
-                        ref: "qDef.label.color",
+                        ref: "qDef.dataLabel.color",
                         component: "color-picker",
                         label: "label color",
                         type: "object",
@@ -77,12 +77,12 @@ define( [], function () {
                 component: "expandable-items",
                 label: "Settings",
                 items:{
-                    Label:{
+                    DataLabel:{
                         type: "items",
-                        label: "Label",
+                        label: "Data Label",
                         items: {
                             LabelVisibility: {
-                                ref: "settings.label.visibility",
+                                ref: "settings.dataLabel.visibility",
                                 type: "boolean",
                                 component: "switch",
                                 label: "Visibility",
@@ -96,21 +96,24 @@ define( [], function () {
                                 defaultValue: true
                             },
                             LabelDistance: {
-                                ref: "settings.label.distance",
+                                ref: "settings.dataLabel.distance",
                                 label: "Distance",
                                 type: "string",
                                 defaultValue: 5,
                                 expression: "optional"
                             },
                             LabelRotate: {
-                                ref: "settings.label.rotate",
+                                type: "number",
+                                component: "slider",
                                 label: "Rotate",
-                                type: "string",
-                                defaultValue: 0,
-                                expression: "optional"
+                                ref: "settings.dataLabel.rotate",
+                                min: -90,
+                                max: 90,
+                                step: 1,
+                                defaultValue: 0
                             },
                             LabelPosition:{
-                                ref: "settings.label.position",
+                                ref: "settings.dataLabel.position",
                                 label: "Position",
                                 type: "string",
                                 component: "dropdown",
@@ -132,7 +135,7 @@ define( [], function () {
                                 ]
                             },
                             LabelFontStyle:{
-                                ref: "settings.label.style",
+                                ref: "settings.dataLabel.style",
                                 label: "Style",
                                 type: "string",
                                 component: "dropdown",
@@ -144,7 +147,7 @@ define( [], function () {
                                 ]
                             },
                             LabelFontWeight:{
-                                ref: "settings.label.weight",
+                                ref: "settings.dataLabel.weight",
                                 label: "Weight",
                                 type: "string",
                                 component: "dropdown",
@@ -158,14 +161,14 @@ define( [], function () {
                                 ]
                             },
                             LabelFontSize: {
-                                ref: "settings.label.size",
+                                ref: "settings.dataLabel.size",
                                 label: "Size",
                                 type: "string",
                                 defaultValue: 15,
                                 expression: "optional"
                             },
                             LabelFontAlign:{
-                                ref: "settings.label.align",
+                                ref: "settings.dataLabel.align",
                                 label: "Align",
                                 type: "string",
                                 component: "dropdown",
@@ -176,6 +179,92 @@ define( [], function () {
                                     {value:"right",label:"right"}
 
                                 ]
+                            },
+                        }
+                    },
+                    AxisLabel:{
+                        type: "items",
+                        label: "Axis Label",
+                        items: {
+                            LabelVisibility: {
+                                ref: "settings.axisLabel.visibility",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Visibility",
+                                options: [{
+                                    value: true,
+                                    label: "Show"
+                                }, {
+                                    value: false,
+                                    label: "Hide"
+                                }],
+                                defaultValue: true
+                            },
+                            LabelRotate: {
+                                type: "number",
+                                component: "slider",
+                                label: "Rotate",
+                                ref: "settings.axisLabel.rotate",
+                                min: -90,
+                                max: 90,
+                                step: 1,
+                                defaultValue: 0
+                            },
+                            LabelFontStyle:{
+                                ref: "settings.axisLabel.style",
+                                label: "Style",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: 'normal',
+                                options:[
+                                    {value:"normal",label:"normal"},
+                                    {value:"italic",label:"italic"},
+                                    {value:"oblique",label:"oblique"}
+                                ]
+                            },
+                            LabelFontWeight:{
+                                ref: "settings.axisLabel.weight",
+                                label: "Weight",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: 'normal',
+                                options:[
+                                    {value:"normal",label:"normal"},
+                                    {value:"bold",label:"bold"},
+                                    {value:"bolder",label:"bolder"},
+                                    {value:"lighter",label:"lighter"}
+                    
+                                ]
+                            },
+                            LabelFontSize: {
+                                ref: "settings.axisLabel.size",
+                                label: "Size",
+                                type: "string",
+                                defaultValue: 15,
+                                expression: "optional"
+                            },
+                            LabelFontAlign:{
+                                ref: "settings.axisLabel.align",
+                                label: "Align",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: 'center',
+                                options:[
+                                    {value:"left",label:"left"},
+                                    {value:"center",label:"center"},
+                                    {value:"right",label:"right"}
+                    
+                                ]
+                            },
+                            LabelColor: {
+                                ref: "settings.axisLabel.color",
+                                component: "color-picker",
+                                label: "font color",
+                                type: "object",
+                                defaultValue: {
+                                    color: "#333",
+                                    index: "-1"
+                                  }
                             },
                         }
                     },
