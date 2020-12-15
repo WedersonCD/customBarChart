@@ -2,7 +2,7 @@
 
 ------------
 
-#### Custom Echarts
+### Custom Bar Chart
 
 A custom bar/line chart create based in [echarts library](https://echarts.apache.org/en/index.html "echarts library").
 
@@ -13,7 +13,7 @@ A custom bar/line chart create based in [echarts library](https://echarts.apache
 
 
 
-#### Expression Options
+### Expression Options
 
 ------------
 
