@@ -7,7 +7,8 @@
 A custom bar/line chart create based in [echarts library](https://echarts.apache.org/en/index.html "echarts library").
 
 - Expression Options
-- Label Settings
+- Data Label Settings
+- Axis Label Settings
 - Bar Settings
 - Samples
 
