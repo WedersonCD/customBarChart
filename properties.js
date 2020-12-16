@@ -268,15 +268,22 @@ define( [], function () {
                             },
                         }
                     },
-                    Bar:{
+                    Others:{
                         type: "items",
-                        label: "bar",
+                        label: "Others",
                         items: {
                             BarGap: {
-                                ref: "settings.bar.gap",
+                                ref: "settings.others.barGap",
                                 label: "Bar Gap",
                                 type: "string",
                                 defaultValue: 0,
+                                expression: "optional"
+                            },
+                            NumberVisibleItems:{
+                                ref: "settings.others.numberVisibleItems",
+                                label: "Number Visible Items",
+                                type: "string",
+                                defaultValue: 12,
                                 expression: "optional"
                             },
                         },

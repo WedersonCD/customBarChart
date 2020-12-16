@@ -79,7 +79,7 @@ function ( $, echarts, props, qlik ) {
         var settings    =layout.settings;
 
         return {
-            barGap: settings.bar.gap,
+            barGap: settings.others.barGap,
             type:   measureInfo.type,
             stack:  measureInfo.stack,
             yAxisIndex:  measureInfo.yIndex,
@@ -133,10 +133,17 @@ function ( $, echarts, props, qlik ) {
         return expressionColorArray;
 
     }
+
     function getDimensionName(layout){
 
         return layout.qHyperCube.qDimensionInfo[0].qGroupFieldDefs[0];
     }
+
+    function getNumberVisibleItems(layout){
+
+        return layout.settings.others.numberVisibleItems - 1
+    }
+
 
     return {
         initialProperties: {
@@ -161,7 +168,8 @@ function ( $, echarts, props, qlik ) {
             var expressionNameArray     = getExpressionsNameArray(layout)
             var expressionColorArray    = getExpressionColorArray(layout)
             var axisLabel               = getAxisLabel(layout)
-            
+            var numberVisibleItems      = getNumberVisibleItems(layout);
+
             var myChart = echarts.init($element[0]); 
 
             var option = {
@@ -175,7 +183,8 @@ function ( $, echarts, props, qlik ) {
                                 type: 'slider',
                                 xAxisIndex: 0,
                                 filterMode: 'empty',
-                                start: 10
+                                startValue: 0,
+                                endValue: numberVisibleItems
                             }
                         ],
                         grid: {
