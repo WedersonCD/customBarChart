@@ -2,18 +2,19 @@
 
 ------------
 
-#### Custom Echarts
+### Custom Bar Chart
 
 A custom bar/line chart create based in [echarts library](https://echarts.apache.org/en/index.html "echarts library").
 
 - Expression Options
-- Label Settings
+- Data Label Settings
+- Axis Label Settings
 - Bar Settings
 - Samples
 
 
 
-#### Expression Options
+### Expression Options
 
 ------------
 
@@ -33,7 +34,7 @@ A custom bar/line chart create based in [echarts library](https://echarts.apache
 - label color: select label color. (label color auto option must be off) 
 
 
-### Label Settings
+### Data Label Settings
 ------------
 ![](https://i.imgur.com/KKOlt84.png)
 
@@ -44,6 +45,22 @@ A custom bar/line chart create based in [echarts library](https://echarts.apache
 - rotate: Rotate label, from -90 degree to 90, positive value represents rotate anti-clockwise.
 
 - position: label position
+
+- style: font style.
+
+- Weight: font thick weight.
+
+- Size: font size.
+
+- Align: Horizontal alignment of text.
+
+### Axis Label Settings
+------------
+![](https://i.imgur.com/7GucaY0.png)
+
+- visibility: Show/Hide
+
+- rotate: Rotate label, from -90 degree to 90, positive value represents rotate anti-clockwise.
 
 - style: font style.
 
