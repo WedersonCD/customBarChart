@@ -9,7 +9,7 @@ A custom bar/line chart create based in [echarts library](https://echarts.apache
 - Expression Options
 - Data Label Settings
 - Axis Label Settings
-- Bar Settings
+- Others Settings
 - Samples
 
 
@@ -70,11 +70,14 @@ A custom bar/line chart create based in [echarts library](https://echarts.apache
 
 - Align: Horizontal alignment of text.
 
-### Bar Settings
+### Others Settings
 
 ------------
 
-- gap: gap betwwen the bars in %, you can use '30%' or 0.3 values. Use '-100%' to overlap the bars.
+- Bar Gap: gap betwwen the bars in %, you can use '30%' or 0.3 values. Use '-100%' to overlap the bars.
+
+- Number Visible Items: Number of visible items in X axis.
+
 ### Samples
 
 ------------
