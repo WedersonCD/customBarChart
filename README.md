@@ -74,7 +74,7 @@ A custom bar/line chart create based in [echarts library](https://echarts.apache
 
 ------------
 
-- Bar Gap: gap betwwen the bars in %, you can use '30%' or 0.3 values. Use '-100%' to overlap the bars.
+- Bar Gap: gap between the bars in %, you can use '30%' or 0.3 values. Use '-100%' to overlap the bars.
 
 - Number Visible Items: Number of visible items in X axis.
 
