@@ -1,5 +1,6 @@
 
 define( [], function () {
+
     return {
         type: "items",
         component: "accordion",
@@ -36,7 +37,14 @@ define( [], function () {
                         defaultValue: '0',
                         options:[{value:"0",label: "left"},{value:"1",label:"right"}]
                     },
-                    Color:{
+                    ColorType: {
+                        ref: "qDef.colorType",
+                        type: "string",
+                        component: "dropdown",
+                        defaultValue: 0,
+                        options:[{value:0,label: "Single Color"},{value:1,label:"By Expression"}]
+                    },
+                    SingleColor:{
                         ref: "qDef.color",
                         component: "color-picker",
                         label: "color",
@@ -44,7 +52,20 @@ define( [], function () {
                         defaultValue: {
                             color: "#4477aa",
                             index: "-1"
-                          }
+                        },
+                        show: function(param) {
+                            return param.qDef.colorType==0;
+                        }
+                    },
+                    ColorByExpression: {
+                        type: "string",
+                        ref: "qAttributeExpressions.0.qExpression",
+                        label: "Bar Color",
+                        component: "expression",
+                        defaultValue: "='#000'",
+                        show: function(param) {
+                            return param.qDef.colorType==1;
+                        }
                     },
                     LabelAutoColor: {
                         ref: "qDef.dataLabel.auto",
@@ -68,9 +89,21 @@ define( [], function () {
                         defaultValue: {
                             color: "#fff",
                             index: "-1"
-                          }
+                          },
+                          show: function(param) {
+                            return !param.qDef.dataLabel.auto && param.qDef.colorType==0;
+                        }
                     },
-                    
+                    LabelColorByExpression:{
+                        type: "string",
+                        ref: "qDef.dataLabel.colorExpression",
+                        label: "Label Color",
+                        defaultValue: '#000',
+                        expression: "optional",
+                        show: function(param) {
+                            return !param.qDef.dataLabel.auto && param.qDef.colorType==1;
+                        }
+                    }
                 }
             },
             Settings:{
@@ -99,7 +132,7 @@ define( [], function () {
                                 ref: "settings.dataLabel.distance",
                                 label: "Distance",
                                 type: "string",
-                                defaultValue: 5,
+                                defaultValue: '5',
                                 expression: "optional"
                             },
                             LabelRotate: {
@@ -164,7 +197,7 @@ define( [], function () {
                                 ref: "settings.dataLabel.size",
                                 label: "Size",
                                 type: "string",
-                                defaultValue: 15,
+                                defaultValue: '15',
                                 expression: "optional"
                             },
                             LabelFontAlign:{
@@ -179,7 +212,7 @@ define( [], function () {
                                     {value:"right",label:"right"}
 
                                 ]
-                            },
+                            }
                         }
                     },
                     AxisLabel:{
@@ -240,7 +273,7 @@ define( [], function () {
                                 ref: "settings.axisLabel.size",
                                 label: "Size",
                                 type: "string",
-                                defaultValue: 15,
+                                defaultValue: '15',
                                 expression: "optional"
                             },
                             LabelFontAlign:{
@@ -265,8 +298,126 @@ define( [], function () {
                                     color: "#333",
                                     index: "-1"
                                   }
+                            }
+                        }
+                    },
+                    Legend:{
+                        type: "items",
+                        label: "Legend",
+                        items: {
+                            LegendVisibility: {
+                                ref: "settings.legend.visibility",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Visibility",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "Off"
+                                }],
+                                defaultValue: true
+                            },
+                            LegendIcon: {
+                                ref: "settings.legend.icon",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: 'circle',
+                                options:[
+                                        {value:'none',label: "none"},
+                                        {value:'circle',label: "circle"},
+                                        {value:'rect',label: "rect"},
+                                        {value:'roundRect',label: "roundRect"},
+                                        {value:'triangle',label: "triangle"},
+                                        {value:'diamond',label: "diamond"},
+                                        {value:'pin',label: "pin"},
+                                        {value:'arrow',label: "arrow"},
+                                    ]
                             },
                         }
+                    },
+                    Focus:{
+                        type: "items",
+                        label: "On Focus",
+                        items: {
+                            FocusOn:{
+                                ref: "settings.focus.on",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Focus",
+                                options: [{
+                                    value: true,
+                                    label: "on"
+                                }, {
+                                    value: false,
+                                    label: "off"
+                                }],
+                                defaultValue: false
+                            },
+                            FocusColorType: {
+                                ref: "settings.focus.colorType",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: 0,
+                                options:[{value:0,label: "Single Color"},{value:1,label:"By Expression"}]
+                            },
+                            FocusSingleColor:{
+                                ref: "settings.focus.item.color",
+                                component: "color-picker",
+                                label: "Color",
+                                type: "object",
+                                defaultValue: {
+                                    color: "#4477aa",
+                                    index: "-1"
+                                },
+                                show: function(param) {
+                                    return param.settings.focus.colorType==0;
+                                }
+                            },
+                            FocusColorByExpression: {
+                                type: "string",
+                                ref: "settings.focus.item.colorExpression.color",
+                                label: "Color",
+                                expression: "optional",
+                                defaultValue: '',
+                                show: function(param) {
+                                    return param.settings.focus.colorType==1;
+                                }
+                            },
+                            FocusLabelSingleColor:{
+                                ref: "settings.focus.label.color",
+                                component: "color-picker",
+                                label: "Label Color",
+                                type: "object",
+                                defaultValue: {
+                                    color: "#4477aa",
+                                    index: "-1"
+                                },
+                                show: function(param) {
+                                    return param.settings.focus.colorType==0;
+                                }
+                            },
+                            FocusLabelColorByExpression: {
+                                type: "string",
+                                ref: "settings.focus.label.colorExpression.color",
+                                label: "Label Color",
+                                expression: "optional",
+                                defaultValue: '',
+                                show: function(param) {
+                                    return param.settings.focus.colorType==1;
+                                }
+                            },
+                            FocusLabelSize: {
+                                type: "string",
+                                ref: "settings.focus.label.size",
+                                label: "Label Size",
+                                defaultValue: "16",
+                                expression: "optional"
+                            }
+
+                        }
+
                     },
                     Others:{
                         type: "items",
@@ -276,20 +427,34 @@ define( [], function () {
                                 ref: "settings.others.barGap",
                                 label: "Bar Gap",
                                 type: "string",
-                                defaultValue: 0,
+                                defaultValue: '0',
                                 expression: "optional"
+                            },
+                            ShowZeroBars:{
+                                ref: "settings.others.showZeroBars",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Show Zero Values",
+                                options: [{
+                                    value: true,
+                                    label: "Show"
+                                }, {
+                                    value: false,
+                                    label: "Hide"
+                                }],
+                                defaultValue: true
                             },
                             NumberVisibleItems:{
                                 ref: "settings.others.numberVisibleItems",
                                 label: "Number Visible Items",
                                 type: "string",
-                                defaultValue: 12,
+                                defaultValue: '12',
                                 expression: "optional"
-                            },
-                        },
+                            }
+                        }
 
                     }
-                },
+                }
             },
             addons: {
                 uses: "addons",

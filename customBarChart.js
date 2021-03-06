@@ -1,6 +1,7 @@
 define( [
     'jquery',
-    'https://cdnjs.cloudflare.com/ajax/libs/echarts/4.2.1/echarts.min.js',
+    //'https://cdnjs.cloudflare.com/ajax/libs/echarts/4.2.1/echarts.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/echarts/5.0.2/echarts.min.js',
     './properties',
     'qlik'
 ],
@@ -13,25 +14,56 @@ function ( $, echarts, props, qlik ) {
         }); 
     }
 
+    function getColorType(layout,measurePosition){
+
+        return layout.qHyperCube.qMeasureInfo[measurePosition].colorType;
+    }
+
+    function getSerieValueItemStyleColor(layout,measurePosition,qMatrixItem){
+
+        var colorType = getColorType(layout,measurePosition);
+
+        var color;
+
+        //0 is single color 1 is color by expression
+        if(colorType==0){
+            color = layout.qHyperCube.qMeasureInfo[measurePosition].color.color
+        }else if(colorType==1){
+            color = qMatrixItem[measurePosition+1].qAttrExps.qValues[0].qText
+        }
+        
+        return color;
+    }
+
     function getSerieValue(layout,measurePosition){
 
 
         return layout.qHyperCube.qDataPages[0].qMatrix.map((item) => {
             
+            var value=item[measurePosition+1].qNum;
+
+            //check if the number will be showed
+            if(value ==0 && !layout.settings.others.showZeroBars){
+                value='-';
+            }
+
             return {
-                 value: item[measurePosition+1].qNum
+                 value: value
                  ,valueText: item[measurePosition+1].qText
+                 ,itemStyle: {
+                     color: getSerieValueItemStyleColor(layout,measurePosition,item)
+                }
            } 
 
         });
     }
+
 
     function getSerieLabel(layout,measurePosition){
 
         settings = layout.settings
 
         var labelSettings={
-            //color:      'auto',
             show:       settings.dataLabel.visibility,
             align:      settings.dataLabel.align,
             fontSize:   settings.dataLabel.size,
@@ -48,7 +80,16 @@ function ( $, echarts, props, qlik ) {
 
         if(measureInfo.dataLabel.auto == false){
 
-            labelSettings.color=measureInfo.dataLabel.color.color;
+            //set single color
+            if(getColorType(layout,measurePosition)==0 ){
+
+                labelSettings.color=measureInfo.dataLabel.color.color;
+
+            //set color by expression
+            }else if(getColorType(layout,measurePosition)==1 ){
+
+                labelSettings.color=measureInfo.dataLabel.colorExpression;
+            }
 
         }
 
@@ -73,6 +114,7 @@ function ( $, echarts, props, qlik ) {
         return labelSettings;
 
     }
+
     function getSerieCommumProperty(layout,measurePosition){
 
         var measureInfo =layout.qHyperCube.qMeasureInfo[measurePosition];
@@ -86,7 +128,52 @@ function ( $, echarts, props, qlik ) {
             name:   measureInfo.qFallbackTitle
         }
     }
+    console.log('sapato a123441')
 
+    function getEmphasis(layout){
+
+        var focus = layout.settings.focus
+
+        //check if On Focus option is on
+        if(!focus.on){
+            return {focus: 'none'}
+        }
+
+        var emphasis={
+            focus:  'series',
+            label:{
+                fontSize: focus.label.size
+            },
+            itemStyle:{},
+            lineStyle:{},
+
+        };
+
+        //Set single color
+        if(focus.colorType==0){
+
+            emphasis.label.color = focus.label.color.color
+            emphasis.itemStyle.color= focus.item.color.color
+            emphasis.lineStyle.color= focus.item.color.color
+
+        //set expression colors if they not are ''    
+        }else if (focus.colorType==1){
+
+            if(!focus.label.colorExpression.color==''){
+
+                emphasis.label.color=focus.label.colorExpression.color
+            }
+            if(!focus.item.colorExpression.color==''){
+
+                emphasis.itemStyle.color= focus.item.colorExpression.color
+                emphasis.lineStyle.color= focus.item.colorExpression.color
+            }
+        }
+
+
+        return emphasis;
+
+    }
     
     function getSerieArray(layout){
         console.log(layout)
@@ -99,7 +186,7 @@ function ( $, echarts, props, qlik ) {
             serieArray[x]=getSerieCommumProperty(layout,x)
             serieArray[x].label=getSerieLabel(layout,x)
             serieArray[x].data=getSerieValue(layout,x)
-
+            serieArray[x].emphasis=getEmphasis(layout)
         }
 
 
@@ -144,6 +231,53 @@ function ( $, echarts, props, qlik ) {
         return layout.settings.others.numberVisibleItems - 1
     }
 
+    function getDataZoom(layout){
+
+        visibleItens = getNumberVisibleItems(layout);
+        qtdDimensionValues = layout.qHyperCube.qDimensionInfo[0].qCardinal  
+        
+        //only show if exists more dimensions values then visible itens.
+        showDataZoom= qtdDimensionValues > visibleItens
+        
+
+        return [
+            {
+                id: 'dataZoomX',
+                type: 'slider',
+                show: showDataZoom,
+                xAxisIndex: 0,
+                filterMode: 'empty',
+                startValue: 0,
+                endValue: visibleItens
+            }
+        ];
+    }
+
+    function getLegend(layout){
+
+        var expressionNumber = layout.qHyperCube.qMeasureInfo.length;
+        var legendDataArray=[];
+
+
+        for(var x=0;x<expressionNumber;x++){
+
+            dataItem={
+
+                name:layout.qHyperCube.qMeasureInfo[x].qFallbackTitle,
+                icon:layout.settings.legend.icon
+            }
+
+            legendDataArray[x] =  dataItem
+
+        }
+
+
+        return {
+            show: layout.settings.legend.visibility,
+            data: legendDataArray
+        };
+
+    }
 
     return {
         initialProperties: {
@@ -157,7 +291,7 @@ function ( $, echarts, props, qlik ) {
             }
         },
         definition: props,
-        support:{snapshot: true},
+        support:{snapshot: true,export: true,exportData: true},
         paint: function ( $element, layout ) {
 
             echarts.dispose($element[0]); 
@@ -165,28 +299,17 @@ function ( $, echarts, props, qlik ) {
             var dimensionArray          = getDimensionArray(layout);
             var dimensionName           = getDimensionName(layout);
             var serieArray              = getSerieArray(layout);
-            var expressionNameArray     = getExpressionsNameArray(layout)
             var expressionColorArray    = getExpressionColorArray(layout)
             var axisLabel               = getAxisLabel(layout)
-            var numberVisibleItems      = getNumberVisibleItems(layout);
-
+            var legend                  = getLegend(layout);
+            var dataZoomArray           = getDataZoom(layout);
+            
             var myChart = echarts.init($element[0]); 
 
             var option = {
                         color: expressionColorArray,
-                        legend: {
-                            data: expressionNameArray
-                        },
-                        dataZoom: [
-                            {
-                                id: 'dataZoomX',
-                                type: 'slider',
-                                xAxisIndex: 0,
-                                filterMode: 'empty',
-                                startValue: 0,
-                                endValue: numberVisibleItems
-                            }
-                        ],
+                        legend: legend,
+                        dataZoom: dataZoomArray,
                         grid: {
                             containLabel: true,
                             left: '0%',
@@ -199,7 +322,7 @@ function ( $, echarts, props, qlik ) {
                         yAxis: [{ show: false},{ show: false}],
                        series: serieArray
             }; 
-       
+
             myChart.setOption(option);
 
 

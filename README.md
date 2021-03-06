@@ -4,14 +4,14 @@
 
 ### Custom Bar Chart
 
-A custom bar/line chart create based in [echarts library](https://echarts.apache.org/en/index.html "echarts library").
+A custom bar/line chart created based in [echarts library](https://echarts.apache.org/en/index.html "echarts library").
 
 - Expression Options
 - Data Label Settings
 - Axis Label Settings
+- On Focus
 - Others Settings
 - Samples
-
 
 
 ### Expression Options
@@ -35,6 +35,7 @@ A custom bar/line chart create based in [echarts library](https://echarts.apache
 
 
 ### Data Label Settings
+
 ------------
 ![](https://i.imgur.com/KKOlt84.png)
 
@@ -55,6 +56,7 @@ A custom bar/line chart create based in [echarts library](https://echarts.apache
 - Align: Horizontal alignment of text.
 
 ### Axis Label Settings
+
 ------------
 ![](https://i.imgur.com/7GucaY0.png)
 
@@ -70,11 +72,27 @@ A custom bar/line chart create based in [echarts library](https://echarts.apache
 
 - Align: Horizontal alignment of text.
 
+### On Focus
+
+------------
+![](https://i.imgur.com/sn4auCd.png)
+
+- Focus: On/Off focus based in [emphasis](https://echarts.apache.org/en/option.html#series-bar.emphasis) echarts funcionality
+
+- Color: Bar/line color.
+
+- Label Color: Label color
+
+- Label Size: Label Size.
+
+
 ### Others Settings
 
 ------------
 
 - Bar Gap: gap between the bars in %, you can use '30%' or 0.3 values. Use '-100%' to overlap the bars.
+
+- Show Zero Values: Hide 0 values.
 
 - Number Visible Items: Number of visible items in X axis.
 
@@ -85,3 +103,5 @@ A custom bar/line chart create based in [echarts library](https://echarts.apache
 ![](https://i.imgur.com/U5t0ou2.png)
 ![](https://i.imgur.com/zgBTdmw.png)
 ![](https://i.imgur.com/zXC3fkG.png)
+![](https://i.imgur.com/2x4x4nc.png)
+![](https://i.imgur.com/KhJFj3D.png)
