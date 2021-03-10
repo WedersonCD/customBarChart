@@ -128,7 +128,6 @@ function ( $, echarts, props, qlik ) {
             name:   measureInfo.qFallbackTitle
         }
     }
-    console.log('sapato a123441')
 
     function getEmphasis(layout){
 
@@ -176,7 +175,6 @@ function ( $, echarts, props, qlik ) {
     }
     
     function getSerieArray(layout){
-        console.log(layout)
         serieArray=[];
 
         var expressionNumber = layout.qHyperCube.qMeasureInfo.length;
@@ -262,7 +260,6 @@ function ( $, echarts, props, qlik ) {
         for(var x=0;x<expressionNumber;x++){
 
             dataItem={
-
                 name:layout.qHyperCube.qMeasureInfo[x].qFallbackTitle,
                 icon:layout.settings.legend.icon
             }
@@ -271,9 +268,23 @@ function ( $, echarts, props, qlik ) {
 
         }
 
+        var textStyleColor;
+
+        if( layout.settings.legend.colorType==0){
+
+            textStyleColor =  layout.settings.legend.text.color.color
+
+        }else if( layout.settings.legend.colorType==1){
+
+            textStyleColor =  layout.settings.legend.text.colorExpression.color
+
+        }
 
         return {
             show: layout.settings.legend.visibility,
+            textStyle: {
+                color: textStyleColor
+            },
             data: legendDataArray
         };
 

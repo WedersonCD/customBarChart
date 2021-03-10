@@ -322,6 +322,7 @@ define( [], function () {
                             LegendIcon: {
                                 ref: "settings.legend.icon",
                                 type: "string",
+                                label: "Icon Type",
                                 component: "dropdown",
                                 defaultValue: 'circle',
                                 options:[
@@ -334,6 +335,36 @@ define( [], function () {
                                         {value:'pin',label: "pin"},
                                         {value:'arrow',label: "arrow"},
                                     ]
+                            },
+                            LegendColorType: {
+                                ref: "settings.legend.colorType",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: 0,
+                                options:[{value:0,label: "Single Color"},{value:1,label:"By Expression"}]
+                            },
+                            LegendSingleColor:{
+                                ref: "settings.legend.text.color",
+                                component: "color-picker",
+                                label: "Text Color",
+                                type: "object",
+                                defaultValue: {
+                                    color: "#4477aa",
+                                    index: "-1"
+                                },
+                                show: function(param) {
+                                    return param.settings.legend.colorType==0;
+                                }
+                            },
+                            LegendColorByExpression: {
+                                type: "string",
+                                ref: "settings.legend.text.colorExpression.color",
+                                label: "Text Color",
+                                expression: "optional",
+                                defaultValue: '',
+                                show: function(param) {
+                                    return param.settings.legend.colorType==1;
+                                }
                             },
                         }
                     },
