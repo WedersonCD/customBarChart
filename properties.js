@@ -450,17 +450,67 @@ define( [], function () {
                         }
 
                     },
-                    Others:{
+                    BarOptions:{
                         type: "items",
-                        label: "Others",
-                        items: {
+                        label: "Bar Options",
+                        items:{
                             BarGap: {
-                                ref: "settings.others.barGap",
+                                ref: "settings.barOptions.barGap",
                                 label: "Bar Gap",
                                 type: "string",
                                 defaultValue: '0',
                                 expression: "optional"
                             },
+                            BarWidthAuto:{
+                                ref: "settings.barOptions.barWidthAuto",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Bar Width Auto",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "Off"
+                                }],
+                                defaultValue: true
+                            },
+                            BarWidth: {
+                                ref: "settings.barOptions.barWidth",
+                                label: "Bar Width",
+                                type: "string",
+                                defaultValue: '40',
+                                expression: "optional",
+                                show: function(param) {
+                                    return !param.settings.barOptions.barWidthAuto;
+                                }
+                            },
+                            MaxBarWidth: {
+                                ref: "settings.barOptions.maxBarWidth",
+                                label: "Max Bar Width",
+                                type: "string",
+                                defaultValue: '100%',
+                                expression: "optional",
+                                show: function(param) {
+                                    return !param.settings.barOptions.barWidthAuto;
+                                }
+                            },
+                            MinBarWidth: {
+                                ref: "settings.barOptions.minBarWidth",
+                                label: "Min Bar Width",
+                                type: "string",
+                                defaultValue: '1',
+                                expression: "optional",
+                                show: function(param) {
+                                    return !param.settings.barOptions.barWidthAuto;
+                                }
+                            },
+                        }                      
+                    },
+                    Others:{
+                        type: "items",
+                        label: "Others",
+                        items: {
                             ShowZeroBars:{
                                 ref: "settings.others.showZeroBars",
                                 type: "boolean",

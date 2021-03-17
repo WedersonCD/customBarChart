@@ -119,14 +119,24 @@ function ( $, echarts, props, qlik ) {
 
         var measureInfo =layout.qHyperCube.qMeasureInfo[measurePosition];
         var settings    =layout.settings;
+        
+        var commumProperty={
 
-        return {
-            barGap: settings.others.barGap,
+            barGap: settings.barOptions.barGap,
             type:   measureInfo.type,
             stack:  measureInfo.stack,
             yAxisIndex:  measureInfo.yIndex,
             name:   measureInfo.qFallbackTitle
+        };
+
+        if(!settings.barOptions.barWidthAuto){
+
+            commumProperty.barWidth     =   settings.barOptions.barWidth
+            commumProperty.barMaxWidth  =   settings.barOptions.maxBarWidth
+            commumProperty.barMinWidth  =   settings.barOptions.minBarWidth
         }
+
+        return commumProperty
     }
 
     function getEmphasis(layout){

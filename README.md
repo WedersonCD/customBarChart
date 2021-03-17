@@ -100,8 +100,8 @@ A custom bar/line chart created based in [echarts library](https://echarts.apach
 
 ------------
 ![](https://i.imgur.com/X32MBv4.png)
+![](https://i.imgur.com/2x4x4nc.png)
 ![](https://i.imgur.com/U5t0ou2.png)
 ![](https://i.imgur.com/zgBTdmw.png)
 ![](https://i.imgur.com/zXC3fkG.png)
-![](https://i.imgur.com/2x4x4nc.png)
 ![](https://i.imgur.com/KhJFj3D.png)

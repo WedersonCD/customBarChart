@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [2.2.0] - 2021-03-17
+
+### Added
+
+- Add bar options in settings (barWidth,minBarWidth,maxBarWidth)
+
+### Changed
+
+- Bar Gap options changed from 'Other' to 'Bar Options'
+
 ## [2.1.0] - 2021-03-10
 
 ### Added
