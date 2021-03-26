@@ -293,7 +293,8 @@ function ( $, echarts, props, qlik ) {
         return {
             show: layout.settings.legend.visibility,
             textStyle: {
-                color: textStyleColor
+                color: textStyleColor,
+                fontSize: layout.settings.legend.text.size
             },
             data: legendDataArray
         };

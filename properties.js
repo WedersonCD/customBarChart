@@ -336,6 +336,13 @@ define( [], function () {
                                         {value:'arrow',label: "arrow"},
                                     ]
                             },
+                            LegendTextSize: {
+                                type: "string",
+                                ref: "settings.legend.text.size",
+                                label: "Text Size",
+                                expression: "optional",
+                                defaultValue: '12',
+                            },
                             LegendColorType: {
                                 ref: "settings.legend.colorType",
                                 type: "string",
@@ -365,7 +372,7 @@ define( [], function () {
                                 show: function(param) {
                                     return param.settings.legend.colorType==1;
                                 }
-                            },
+                            }
                         }
                     },
                     Focus:{
