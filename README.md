@@ -10,6 +10,7 @@ A custom bar/line chart created based in [echarts library](https://echarts.apach
 - Data Label Settings
 - Axis Label Settings
 - On Focus
+- Grid Settings
 - Others Settings
 - Samples
 
@@ -17,9 +18,6 @@ A custom bar/line chart created based in [echarts library](https://echarts.apach
 ### Expression Options
 
 ------------
-
-![](https://i.imgur.com/YY8CR9h.png)
-
 
 - stack: Stack the measures on your on way! if two or more measures have the same stack property they are satcked.
 
@@ -37,7 +35,6 @@ A custom bar/line chart created based in [echarts library](https://echarts.apach
 ### Data Label Settings
 
 ------------
-![](https://i.imgur.com/KKOlt84.png)
 
 - visibility: Show/Hide
 
@@ -58,7 +55,6 @@ A custom bar/line chart created based in [echarts library](https://echarts.apach
 ### Axis Label Settings
 
 ------------
-![](https://i.imgur.com/7GucaY0.png)
 
 - visibility: Show/Hide
 
@@ -75,7 +71,6 @@ A custom bar/line chart created based in [echarts library](https://echarts.apach
 ### On Focus
 
 ------------
-![](https://i.imgur.com/sn4auCd.png)
 
 - Focus: On/Off focus based in [emphasis](https://echarts.apache.org/en/option.html#series-bar.emphasis) echarts funcionality
 
@@ -85,12 +80,34 @@ A custom bar/line chart created based in [echarts library](https://echarts.apach
 
 - Label Size: Label Size.
 
-
-### Others Settings
+### Bar Options
 
 ------------
 
 - Bar Gap: gap between the bars in %, you can use '30%' or 0.3 values. Use '-100%' to overlap the bars.
+
+- Bar Width Auto: Enable width bar options.
+
+- Bar Width: Width of the bars, yout can use absolute values like '70' or percentage values like '20%'.
+
+- Max\Min Bar Width: Difine max and min values for bar width. 
+
+### Grid Options
+
+------------
+
+- Contain Label: Change the grid size based on label. ( see more [here](https://echarts.apache.org/en/option.html#grid.containLabel) )
+
+- Custom Grid Position: Enable grid position options
+
+- Left\Right\Top\Bottom: Define the position of the chart relative to each side. Can be absolute values like '60' or percentage values like '10%'.
+
+- width\height: Define the Height and width of the chart, can be absolute values, percentage values or 'auto' to let eCharts define the values.
+
+
+### Others Settings
+
+------------
 
 - Show Zero Values: Hide 0 values.
 

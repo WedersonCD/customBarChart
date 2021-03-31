@@ -514,6 +514,95 @@ define( [], function () {
                             },
                         }                      
                     },
+                    Grid:{
+                        type: "items",
+                        label: "Grid",
+                        items: {
+                            ContainLabel:{
+                                ref: "settings.grid.containLabel",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Contain Label",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "False"
+                                }],
+                                defaultValue: false
+                            },
+                            CustomGrid:{
+                                ref: "settings.grid.customGridPosition",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Custom Grid Position",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "False"
+                                }],
+                                defaultValue: false
+                            },
+                            Left:{
+                                ref: "settings.grid.position.left",
+                                label: "Left",
+                                type: "string",
+                                defaultValue: '10%',
+                                expression: "optional",
+                                show: function(param) {
+                                    return param.settings.grid.customGridPosition;
+                                }
+                            },
+                            Right:{
+                                ref: "settings.grid.position.right",
+                                label: "Right",
+                                type: "string",
+                                defaultValue: '10%',
+                                expression: "optional",
+                                show: function(param) {
+                                    return param.settings.grid.customGridPosition;
+                                }
+                            },
+                            Top:{
+                                ref: "settings.grid.position.top",
+                                label: "Top",
+                                type: "string",
+                                defaultValue: '60',
+                                expression: "optional",
+                                show: function(param) {
+                                    return param.settings.grid.customGridPosition;
+                                }
+                            },
+                            Bottom:{
+                                ref: "settings.grid.position.bottom",
+                                label: "Bottom",
+                                type: "string",
+                                defaultValue: '60',
+                                expression: "optional",
+                                show: function(param) {
+                                    return param.settings.grid.customGridPosition;
+                                }
+                            },
+                            Width:{
+                                ref: "settings.grid.width",
+                                label: "Width",
+                                type: "string",
+                                defaultValue: 'auto',
+                                expression: "optional"
+                            },
+                            Height:{
+                                ref: "settings.grid.height",
+                                label: "Height",
+                                type: "string",
+                                defaultValue: 'auto',
+                                expression: "optional"
+                            },
+                        }
+
+                    },
                     Others:{
                         type: "items",
                         label: "Others",

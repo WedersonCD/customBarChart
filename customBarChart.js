@@ -1,6 +1,5 @@
 define( [
     'jquery',
-    //'https://cdnjs.cloudflare.com/ajax/libs/echarts/4.2.1/echarts.min.js',
     'https://cdnjs.cloudflare.com/ajax/libs/echarts/5.0.2/echarts.min.js',
     './properties',
     'qlik'
@@ -242,7 +241,7 @@ function ( $, echarts, props, qlik ) {
     function getDataZoom(layout){
 
         visibleItens = getNumberVisibleItems(layout);
-        qtdDimensionValues = layout.qHyperCube.qDimensionInfo[0].qCardinal  
+        qtdDimensionValues = getDimensionArray(layout).length
         
         //only show if exists more dimensions values then visible itens.
         showDataZoom= qtdDimensionValues > visibleItens
@@ -259,6 +258,28 @@ function ( $, echarts, props, qlik ) {
                 endValue: visibleItens
             }
         ];
+    }
+    function getGrid(layout){ 
+
+        gridLayout = layout.settings.grid 
+
+        var grid= {
+            containLabel: gridLayout.containLabel,
+            width: gridLayout.width,
+            height: gridLayout.height
+        }
+
+        if(gridLayout.customGridPosition){
+
+            grid.left=gridLayout.position.left
+            grid.right=gridLayout.position.right
+            grid.top=gridLayout.position.top
+            grid.bottom=gridLayout.position.bottom
+
+        }
+
+
+        return grid
     }
 
     function getLegend(layout){
@@ -325,18 +346,15 @@ function ( $, echarts, props, qlik ) {
             var axisLabel               = getAxisLabel(layout)
             var legend                  = getLegend(layout);
             var dataZoomArray           = getDataZoom(layout);
-            
+            var grid                    = getGrid(layout);
+
             var myChart = echarts.init($element[0]); 
 
             var option = {
                         color: expressionColorArray,
                         legend: legend,
                         dataZoom: dataZoomArray,
-                        grid: {
-                            containLabel: true,
-                            left: '0%',
-                            right: '0%'
-                        },
+                        grid: grid,
                         xAxis: {
                            data: dimensionArray,
                            axisLabel: axisLabel
