@@ -90,7 +90,7 @@ A custom bar/line chart created based in [echarts library](https://echarts.apach
 
 - Bar Width: Width of the bars, yout can use absolute values like '70' or percentage values like '20%'.
 
-- Max\Min Bar Width: Difine max and min values for bar width. 
+- Max\Min Bar Width: Define max and min values for bar width. 
 
 ### Grid Options
 
