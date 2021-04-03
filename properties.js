@@ -29,6 +29,27 @@ define( [], function () {
                         defaultValue: 'bar',
                         options:[{value:"bar",label: "bar"},{value:"line",label:"line"}]
                     },
+                    LineType:{
+                        ref: "qDef.line.type",
+                        label: "Line Type",
+                        type: "string",
+                        component: "dropdown",
+                        defaultValue: 'solid',
+                        options:[{value:"solid",label: "solid"},{value:"dashed",label:"dashed"},{value:"dotted",label:"dotted"}],
+                        show: function(param) {
+                            return param.qDef.type=="line";
+                        }
+                    },
+                    LineWidth:{
+                        ref: "qDef.line.width",
+                        label: "Line Width",
+                        type: "string",
+                        defaultValue: '2',
+                        expression: "optional",
+                        show: function(param) {
+                            return param.qDef.type=="line";
+                        }
+                    },
                     Yindex:{
                         ref: "qDef.yIndex",
                         label: "y-axis",
@@ -47,7 +68,7 @@ define( [], function () {
                     SingleColor:{
                         ref: "qDef.color",
                         component: "color-picker",
-                        label: "color",
+                        label: "Item Color",
                         type: "object",
                         defaultValue: {
                             color: "#4477aa",
@@ -60,7 +81,7 @@ define( [], function () {
                     ColorByExpression: {
                         type: "string",
                         ref: "qAttributeExpressions.0.qExpression",
-                        label: "Bar Color",
+                        label: "Item Color",
                         component: "expression",
                         defaultValue: "='#000'",
                         show: function(param) {
@@ -84,7 +105,7 @@ define( [], function () {
                     LabelColor:{
                         ref: "qDef.dataLabel.color",
                         component: "color-picker",
-                        label: "label color",
+                        label: "Label Color",
                         type: "object",
                         defaultValue: {
                             color: "#fff",
@@ -103,7 +124,41 @@ define( [], function () {
                         show: function(param) {
                             return !param.qDef.dataLabel.auto && param.qDef.colorType==1;
                         }
-                    }
+                    },
+                    LabelBorderWidth:{
+                        type: "string",
+                        ref: "qDef.dataLabel.border.width",
+                        label: "Label Border Width",
+                        defaultValue: '0',
+                        expression: "optional",
+                        show: function(param) {
+                            return !param.qDef.dataLabel.auto
+                        }
+                    },
+                    LabelBorderColor:{
+                        ref: "qDef.dataLabel.border.color",
+                        component: "color-picker",
+                        label: "Label Border Color",
+                        type: "object",
+                        defaultValue: {
+                            color: "#fff",
+                            index: "-1"
+                          },
+                          show: function(param) {
+                            return !param.qDef.dataLabel.auto && param.qDef.colorType==0;
+                        }
+                    },
+                    LabelBorderColorByExpression:{
+                        type: "string",
+                        ref: "qDef.dataLabel.border.colorExpression",
+                        label: "Label Border Color",
+                        defaultValue: '#000',
+                        expression: "optional",
+                        show: function(param) {
+                            return !param.qDef.dataLabel.auto && param.qDef.colorType==1;
+                        }
+                    },
+                    
                 }
             },
             Settings:{
@@ -212,7 +267,122 @@ define( [], function () {
                                     {value:"right",label:"right"}
 
                                 ]
-                            }
+                            },
+                            LabelDrag: {
+                                ref: "settings.dataLabel.drag.isDraggable",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Allow Drag&Drop",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "Off"
+                                }],
+                                defaultValue: false
+                            },
+                            LabelDragText: {
+                                label:"Label dragging only works when label border width is 0.",
+                                component: "text",
+                                show: function(param){
+                                    return param.settings.dataLabel.drag.isDraggable
+                                }
+                            },
+                            LabelLabelLine: {
+                                ref: "settings.dataLabel.labelLine.show",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Show Lable Line",
+                                options: [{
+                                    value: true,
+                                    label: "Show"
+                                }, {
+                                    value: false,
+                                    label: "Off"
+                                }],
+                                defaultValue: false,
+                                show: function(param){
+                                    return param.settings.dataLabel.drag.isDraggable
+                                }
+                            },
+                            LabelLabelLineColorType: {
+                                ref: "settings.dataLabel.labelLine.colorType",
+                                label: "Line Color Mode",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: 0,
+                                options:[{value:0,label: "Single Color"},{value:1,label:"By Expression"},{value:2,label:"Use Label Color"}],
+                                show: function(param){
+                                    return param.settings.dataLabel.labelLine.show && param.settings.dataLabel.drag.isDraggable
+                                }
+                            },
+                            LabelLabelLineColor:{
+                                ref: "settings.dataLabel.labelLine.color",
+                                component: "color-picker",
+                                label: "Line Color",
+                                type: "object",
+                                defaultValue: {
+                                    color: "#000",
+                                    index: "-1"
+                                },
+                                show: function(param) {
+                                    thisParam = param.settings.dataLabel
+                                    return  param.settings.dataLabel.labelLine.show &&
+                                            param.settings.dataLabel.drag.isDraggable &&
+                                            param.settings.dataLabel.labelLine.colorType==0
+                                }
+                            },
+                            LabelLabelLineColorExpression: {
+                                ref: "settings.dataLabel.labelLine.colorExpression",
+                                label: "Line Color",
+                                type: "string",
+                                defaultValue: '#000',
+                                expression: "optional",
+                                show: function(param) {
+                                    return param.settings.dataLabel.labelLine.show &&
+                                    param.settings.dataLabel.drag.isDraggable &&
+                                    param.settings.dataLabel.labelLine.colorType==1
+                                }
+                            },
+                            LabelLabelLineWidth: {
+                                ref: "settings.dataLabel.labelLine.width",
+                                label: "Line Width",
+                                type: "string",
+                                defaultValue: '1',
+                                expression: "optional",
+                                show: function(param) {
+                                    return param.settings.dataLabel.labelLine.show &&
+                                    param.settings.dataLabel.drag.isDraggable
+                                }
+                            },
+                            LabelLabelLineOpacity: {
+                                ref: "settings.dataLabel.labelLine.opacity",
+                                label: "Line Opacity (0 to 1)",
+                                type: "string",
+                                defaultValue: '1',
+                                expression: "optional",
+                                show: function(param) {
+                                    thisParam = param.settings.dataLabel
+                                    return thisParam.labelLine.show && thisParam.drag.isDraggable
+                                }
+                            },
+                            LabelLabelLineType:{
+                                ref: "settings.dataLabel.labelLine.type",
+                                label: "Line Type",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: 'solid',
+                                options:[
+                                    {value:"solid",label:"solid"},
+                                    {value:"dashed",label:"dashed"},
+                                    {value:"dotted",label:"dotted"}
+                                ],
+                                show: function(param) {
+                                    thisParam = param.settings.dataLabel
+                                    return thisParam.labelLine.show && thisParam.drag.isDraggable
+                                }
+                            },
                         }
                     },
                     AxisLabel:{
@@ -289,16 +459,67 @@ define( [], function () {
                     
                                 ]
                             },
+                            LabelColorType: {
+                                ref: "settings.axisLabel.colorType",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: 0,
+                                options:[{value:0,label: "Single Color"},{value:1,label:"By Expression"}],
+
+                            },
                             LabelColor: {
                                 ref: "settings.axisLabel.color",
                                 component: "color-picker",
-                                label: "font color",
+                                label: "Text Color",
                                 type: "object",
                                 defaultValue: {
                                     color: "#333",
+                                    index: "-2"
+                                },
+                                show: function(param) {
+                                    return param.settings.axisLabel.colorType==0;
+                                }
+                            },
+                            LabelColorByExpression:{
+                                type: "string",
+                                ref: "settings.axisLabel.colorByExpression",
+                                label: "Text Color",
+                                defaultValue: '#333',
+                                expression: "optional",
+                                show: function(param) {
+                                    return param.settings.axisLabel.colorType==1;
+                                }
+                            },
+                            LabelBorderWidth:{
+                                type: "string",
+                                ref: "settings.axisLabel.border.width",
+                                label: "Text Border Width",
+                                defaultValue: '0',
+                                expression: "optional"
+                            },
+                            LabelBorderColor:{
+                                ref: "settings.axisLabel.border.color",
+                                component: "color-picker",
+                                label: "Text Border Color",
+                                type: "object",
+                                defaultValue: {
+                                    color: "#fff",
                                     index: "-1"
-                                  }
-                            }
+                                  },
+                                  show: function(param) {
+                                    return param.settings.axisLabel.colorType==0;
+                                }
+                            },
+                            LabelBorderColorByExpression:{
+                                type: "string",
+                                ref: "settings.axisLabel.border.colorByExpression",
+                                label: "Text Border Color",
+                                defaultValue: '#fff',
+                                expression: "optional",
+                                show: function(param) {
+                                    return param.settings.axisLabel.colorType==1;
+                                }
+                            },
                         }
                     },
                     Legend:{
@@ -365,14 +586,44 @@ define( [], function () {
                             },
                             LegendColorByExpression: {
                                 type: "string",
-                                ref: "settings.legend.text.colorExpression.color",
+                                ref: "settings.legend.text.colorExpression",
                                 label: "Text Color",
                                 expression: "optional",
                                 defaultValue: '',
                                 show: function(param) {
                                     return param.settings.legend.colorType==1;
                                 }
-                            }
+                            },
+                            LegendBorderWidth:{
+                                type: "string",
+                                ref: "settings.legend.text.border.width",
+                                label: "Text Border Width",
+                                defaultValue: '0',
+                                expression: "optional"
+                            },
+                            LegendBorderColor:{
+                                ref: "settings.legend.text.border.color",
+                                component: "color-picker",
+                                label: "Text Border Color",
+                                type: "object",
+                                defaultValue: {
+                                    color: "#fff",
+                                    index: "-1"
+                                  },
+                                  show: function(param) {
+                                    return param.settings.legend.colorType==0;
+                                }
+                            },
+                            LegendBorderColorByExpression:{
+                                type: "string",
+                                ref: "settings.legend.text.border.colorByExpression",
+                                label: "Text Border Color",
+                                defaultValue: '#fff',
+                                expression: "optional",
+                                show: function(param) {
+                                    return param.settings.legend.colorType==1;
+                                }
+                            },
                         }
                     },
                     Focus:{
@@ -514,6 +765,178 @@ define( [], function () {
                             },
                         }                      
                     },
+                    yAxisLeft:{
+                        type: "items",
+                        label: "yAxis: Left",
+                        items: {
+                            yAxisLeftShow:{
+                                label: "Visibility",
+                                ref: "settings.yAxis.left.show",
+                                type: "boolean",
+                                component: "switch",
+                                options: [{
+                                    value: true,
+                                    label: "Show"
+                                }, {
+                                    value: false,
+                                    label: "Hide"
+                                }],
+                                defaultValue: false
+                            },
+                            yAxisLeftAutoValues:{
+                                ref: "settings.yAxis.left.autoInterval",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Interval",
+                                options: [{
+                                    value: true,
+                                    label: "Auto"
+                                }, {
+                                    value: false,
+                                    label: "Custom"
+                                }],
+                                defaultValue: true
+                            },
+                            yAxisLeftIntervalCustom: {
+                                ref: "settings.yAxis.left.intervalType",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: 0,
+                                options:[{value:0,label: "Min"},{value:1,label:"Max"},{value:2,label:"Min/Max"}],
+                                show: function(param){
+                                    return !param.settings.yAxis.left.autoInterval
+                                }
+                            },
+                            yAxisLeftMin:{
+                                ref: "settings.yAxis.left.min",
+                                label: "Min",
+                                type: "string",
+                                defaultValue: '0',
+                                expression: "optional",
+                                show: function(param){
+                                    return !param.settings.yAxis.left.autoInterval &&
+                                            (
+                                                param.settings.yAxis.left.intervalType==0 ||
+                                                param.settings.yAxis.left.intervalType==2 
+                                            )
+                                }
+                            },
+                            yAxisLeftMax:{
+                                ref: "settings.yAxis.left.max",
+                                label: "Max",
+                                type: "string",
+                                defaultValue: '100',
+                                expression: "optional",
+                                show: function(param){
+                                    return !param.settings.yAxis.left.autoInterval &&
+                                            (
+                                                param.settings.yAxis.left.intervalType==1 ||
+                                                param.settings.yAxis.left.intervalType==2 
+                                            )
+                                }
+                            },
+                            yAxisLeftInverse:{
+                                ref: "settings.yAxis.left.inverse",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Inverse",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "Off"
+                                }],
+                                defaultValue: false
+                            },
+                        }
+                    },
+                    yAxisRight:{
+                        type: "items",
+                        label: "yAxis: Right",
+                        items: {
+                            yAxisRightShow:{
+                                label: "Visibility",
+                                ref: "settings.yAxis.right.show",
+                                type: "boolean",
+                                component: "switch",
+                                options: [{
+                                    value: true,
+                                    label: "Show"
+                                }, {
+                                    value: false,
+                                    label: "Hide"
+                                }],
+                                defaultValue: false
+                            },
+                            yAxisRightAutoValues:{
+                                ref: "settings.yAxis.right.autoInterval",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Interval",
+                                options: [{
+                                    value: true,
+                                    label: "Auto"
+                                }, {
+                                    value: false,
+                                    label: "Custom"
+                                }],
+                                defaultValue: true
+                            },
+                            yAxisRightIntervalCustom: {
+                                ref: "settings.yAxis.right.intervalType",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: 0,
+                                options:[{value:0,label: "Min"},{value:1,label:"Max"},{value:2,label:"Min/Max"}],
+                                show: function(param){
+                                    return !param.settings.yAxis.right.autoInterval
+                                }
+                            },
+                            yAxisRightMin:{
+                                ref: "settings.yAxis.right.min",
+                                label: "Min",
+                                type: "string",
+                                defaultValue: '0',
+                                expression: "optional",
+                                show: function(param){
+                                    return !param.settings.yAxis.right.autoInterval &&
+                                            (
+                                                param.settings.yAxis.right.intervalType==0 ||
+                                                param.settings.yAxis.right.intervalType==2 
+                                            )
+                                }
+                            },
+                            yAxisRightMax:{
+                                ref: "settings.yAxis.right.max",
+                                label: "Max",
+                                type: "string",
+                                defaultValue: '100',
+                                expression: "optional",
+                                show: function(param){
+                                    return !param.settings.yAxis.right.autoInterval &&
+                                            (
+                                                param.settings.yAxis.right.intervalType==1 ||
+                                                param.settings.yAxis.right.intervalType==2 
+                                            )
+                                }
+                            },
+                            yAxisRightInverse:{
+                                ref: "settings.yAxis.right.inverse",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Inverse",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "Off"
+                                }],
+                                defaultValue: false
+                            },
+                        }
+                    },
                     Grid:{
                         type: "items",
                         label: "Grid",
@@ -542,7 +965,7 @@ define( [], function () {
                                     label: "On"
                                 }, {
                                     value: false,
-                                    label: "False"
+                                    label: "Off"
                                 }],
                                 defaultValue: false
                             },

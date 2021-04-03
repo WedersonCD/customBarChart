@@ -39,6 +39,8 @@ function ( $, echarts, props, qlik ) {
 
         return layout.qHyperCube.qDataPages[0].qMatrix.map((item) => {
             
+            
+
             var value=item[measurePosition+1].qNum;
 
             //check if the number will be showed
@@ -56,7 +58,6 @@ function ( $, echarts, props, qlik ) {
 
         });
     }
-
 
     function getSerieLabel(layout,measurePosition){
 
@@ -90,6 +91,21 @@ function ( $, echarts, props, qlik ) {
                 labelSettings.color=measureInfo.dataLabel.colorExpression;
             }
 
+            //Color Border
+            if(measureInfo.dataLabel.border){
+
+                labelSettings.textBorderWidth=measureInfo.dataLabel.border.width
+
+                if(getColorType(layout,measurePosition)==0 ){
+
+                    labelSettings.textBorderColor=color=measureInfo.dataLabel.border.color.color;
+
+                }else if(getColorType(layout,measurePosition)==1 ){
+
+                    labelSettings.textBorderColor=measureInfo.dataLabel.border.colorExpression;
+                }
+            }
+
         }
 
         return labelSettings;
@@ -98,19 +114,103 @@ function ( $, echarts, props, qlik ) {
 
     function getAxisLabel(layout){
 
-        settings = layout.settings
+        axisLabelLayout = layout.settings.axisLabel
 
         var labelSettings={
-            color:      settings.axisLabel.color.color,
-            show:       settings.axisLabel.visibility,
-            align:      settings.axisLabel.align,
-            fontSize:   settings.axisLabel.size,
-            fontWeight: settings.axisLabel.weight,
-            fontStyle:  settings.axisLabel.style,
-            rotate:     settings.axisLabel.rotate
+            show:       axisLabelLayout.visibility,
+            align:      axisLabelLayout.align,
+            fontSize:   axisLabelLayout.size,
+            fontWeight: axisLabelLayout.weight,
+            fontStyle:  axisLabelLayout.style,
+            rotate:     axisLabelLayout.rotate
         }
 
+
+        //get text color
+        if(axisLabelLayout.colorType>=0){
+
+            if(axisLabelLayout.colorType==0){
+                labelSettings.color =  axisLabelLayout.color.color
+
+            }else if(axisLabelLayout.colorType==1){
+                labelSettings.color =  axisLabelLayout.colorByExpression
+
+            }
+        }
+
+        //Get text border
+        if(axisLabelLayout.border){
+
+            labelSettings.textBorderWidth =axisLabelLayout.border.width
+
+            if(axisLabelLayout.colorType==0){
+
+                labelSettings.textBorderColor =  axisLabelLayout.border.color.color
+    
+            }else if(axisLabelLayout.colorType==1){
+    
+                labelSettings.textBorderColor =  axisLabelLayout.border.colorByExpression
+    
+            }
+
+        }
+        
+
         return labelSettings;
+
+    }
+
+    function getLabelLine(layout,measureInfo){
+
+        labelLineLayout = layout.settings.dataLabel.labelLine
+
+        var labelLine={
+            show:true,
+            length2:5,
+            lineStyle:{
+                width: labelLineLayout.width,
+                opacity:labelLineLayout.opacity,
+                type: labelLineLayout.type
+            }
+        }
+
+        //Define line color
+
+        //Single Color
+        if(labelLineLayout.colorType==0){
+
+            labelLine.lineStyle.color=labelLineLayout.color.color
+        //Color by expression
+        }else if(labelLineLayout.colorType==1){
+
+            labelLine.lineStyle.color=labelLineLayout.color.colorExpression
+        
+            //Keep Label Color
+        }else if(labelLineLayout.colorType==2){
+
+            if(measureInfo.colorType==0){
+                labelLine.lineStyle.color=measureInfo.dataLabel.color.color
+            }else if(measureInfo.colorType==1){
+                labelLine.lineStyle.color=measureInfo.dataLabel.colorExpression
+            }
+
+        }
+
+        return labelLine;
+
+    }
+
+    function getLabellabelLayout(layout){
+
+        var labelDrag=function (param) {
+            return {
+                x: param.rect.x+(param.rect.width/2),
+                y: param.labelRect.y,
+                draggable:true
+            }
+        };
+
+        return labelDrag;
 
     }
 
@@ -127,6 +227,26 @@ function ( $, echarts, props, qlik ) {
             yAxisIndex:  measureInfo.yIndex,
             name:   measureInfo.qFallbackTitle
         };
+
+        if(measureInfo.line && measureInfo.type=='line'){
+
+            commumProperty.lineStyle={
+                width: parseInt(measureInfo.line.width),
+                type: measureInfo.line.type,
+            }
+        }
+
+        if(settings.dataLabel.drag && settings.dataLabel.drag.isDraggable){
+            commumProperty.labelLayout=getLabellabelLayout(layout)
+            
+            //Only show label line if labeldrag is active"
+            if(settings.dataLabel.labelLine && settings.dataLabel.labelLine.show){
+                commumProperty.labelLine = getLabelLine(layout,measureInfo)
+            }
+        }
+
+
+
 
         if(!settings.barOptions.barWidthAuto){
 
@@ -196,21 +316,8 @@ function ( $, echarts, props, qlik ) {
             serieArray[x].emphasis=getEmphasis(layout)
         }
 
-
+        if(layout.qHyperCube.qMeasureInfo)
         return serieArray;
-    }
-
-    function getExpressionsNameArray(layout){
-
-        var expressionNumber = layout.qHyperCube.qMeasureInfo.length;
-        var expressionTitleArray=[];
-
-        for(var x=0;x<expressionNumber;x++){
-
-            expressionTitleArray[x] =  layout.qHyperCube.qMeasureInfo[x].qFallbackTitle;
-        }
-
-        return expressionTitleArray;
     }
 
     function getExpressionColorArray(layout){
@@ -259,6 +366,8 @@ function ( $, echarts, props, qlik ) {
             }
         ];
     }
+
+
     function getGrid(layout){ 
 
         gridLayout = layout.settings.grid 
@@ -282,11 +391,52 @@ function ( $, echarts, props, qlik ) {
         return grid
     }
 
+    function getLegendTextStyle(layout){
+
+        legendLayout = layout.settings.legend.text;
+
+        var legendTextStyle= {
+            fontSize: legendLayout.size
+        }
+
+        if(layout.settings.legend.colorType==0){
+
+            legendTextStyle.color =  legendLayout.color.color
+
+        }else if( layout.settings.legend.colorType==1){
+
+            legendTextStyle.color =  legendLayout.colorExpression
+
+        }
+
+        if(legendLayout.border){
+
+            legendTextStyle.textBorderWidth =legendLayout.border.width
+
+            if(layout.settings.legend.colorType==0){
+
+                legendTextStyle.textBorderColor =  legendLayout.border.color.color
+    
+            }else if( layout.settings.legend.colorType==1){
+    
+                legendTextStyle.textBorderColor =  legendLayout.border.colorExpression
+    
+            }
+
+        }
+
+
+
+        return legendTextStyle
+
+    }
+
     function getLegend(layout){
 
         var expressionNumber = layout.qHyperCube.qMeasureInfo.length;
-        var legendDataArray=[];
 
+        //Legend Data
+        var legendDataArray=[];
 
         for(var x=0;x<expressionNumber;x++){
 
@@ -298,31 +448,74 @@ function ( $, echarts, props, qlik ) {
             legendDataArray[x] =  dataItem
 
         }
-
-        var textStyleColor;
-
-        if( layout.settings.legend.colorType==0){
-
-            textStyleColor =  layout.settings.legend.text.color.color
-
-        }else if( layout.settings.legend.colorType==1){
-
-            textStyleColor =  layout.settings.legend.text.colorExpression.color
-
-        }
+        
 
         return {
             show: layout.settings.legend.visibility,
-            textStyle: {
-                color: textStyleColor,
-                fontSize: layout.settings.legend.text.size
-            },
+            textStyle: getLegendTextStyle(layout),
             data: legendDataArray
         };
 
     }
 
+    function getXAxis(layout){
+
+        var xAxis =  {
+            data: getDimensionArray(layout),
+            axisLabel: getAxisLabel(layout)
+         }
+
+        
+         return xAxis;
+
+    }
+
+    function getYAxisProperty(yAxis){
+
+        yAxisProperty={
+            show: yAxis.show,
+            inverse: yAxis.inverse
+        }
+
+        if(!yAxis.autoInterval){
+
+            if(yAxis.intervalType==0 || yAxis.intervalType==2){
+
+                yAxisProperty.min=yAxis.min
+            }
+
+            if(yAxis.intervalType==1 || yAxis.intervalType==2){
+                
+                yAxisProperty.max=yAxis.max
+            }
+
+        }
+
+        return yAxisProperty;
+
+    }
+
+    function getYAxis(layout){
+
+        if(layout.settings.yAxis){
+
+            var yAxis =  [
+                getYAxisProperty(layout.settings.yAxis.left),
+                getYAxisProperty(layout.settings.yAxis.right)
+            ]
+
+        }else{
+
+            var yAxis =  [{show:false},{show:false}]
+        }
+
+        
+         return yAxis;
+
+    }
+
     return {
+
         initialProperties: {
             qHyperCubeDef : {
                 qDimensions : [],
@@ -337,16 +530,17 @@ function ( $, echarts, props, qlik ) {
         support:{snapshot: true,export: true,exportData: true},
         paint: function ( $element, layout ) {
 
+            console.log(layout)
             echarts.dispose($element[0]); 
 
-            var dimensionArray          = getDimensionArray(layout);
-            var dimensionName           = getDimensionName(layout);
-            var serieArray              = getSerieArray(layout);
-            var expressionColorArray    = getExpressionColorArray(layout)
-            var axisLabel               = getAxisLabel(layout)
-            var legend                  = getLegend(layout);
-            var dataZoomArray           = getDataZoom(layout);
-            var grid                    = getGrid(layout);
+            var dimensionName           =   getDimensionName(layout);
+            var serieArray              =   getSerieArray(layout);
+            var expressionColorArray    =   getExpressionColorArray(layout)
+            var legend                  =   getLegend(layout);
+            var dataZoomArray           =   getDataZoom(layout);
+            var grid                    =   getGrid(layout);
+            var xAxis                   =   getXAxis(layout);
+            var yAxis                   =   getYAxis(layout);
 
             var myChart = echarts.init($element[0]); 
 
@@ -355,20 +549,18 @@ function ( $, echarts, props, qlik ) {
                         legend: legend,
                         dataZoom: dataZoomArray,
                         grid: grid,
-                        xAxis: {
-                           data: dimensionArray,
-                           axisLabel: axisLabel
-                        }, 
-                        yAxis: [{ show: false},{ show: false}],
-                       series: serieArray
-            }; 
+                        xAxis:xAxis, 
+                        yAxis: yAxis,
+                        series: serieArray
+            };
+
+            console.log(option)
 
             myChart.setOption(option);
 
 
             myChart.on('click', function (params) {
                 qlik.currApp(this).field(dimensionName).selectValues([params.name],true,true)
-
 
             });
 

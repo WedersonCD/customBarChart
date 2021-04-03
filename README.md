@@ -6,10 +6,14 @@
 
 A custom bar/line chart created based in [echarts library](https://echarts.apache.org/en/index.html "echarts library").
 
+- See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CHANGELOG.MD "Changed Log")
+
 - Expression Options
 - Data Label Settings
 - Axis Label Settings
 - On Focus
+- Bar Options
+- yAxis
 - Grid Settings
 - Others Settings
 - Samples
@@ -23,6 +27,10 @@ A custom bar/line chart created based in [echarts library](https://echarts.apach
 
 - type: How the measure will be presented, in bar or line.
 
+- line type: If 'type' option is 'Line' you can choose between 'Solid','Dashed' or 'Dotted' line types.
+
+-line width: If 'type' option is 'Line' you can define the line width.
+
 - y-axis: Defines which y-axis the measure will follow.
 
 - color: Define the measure color.
@@ -30,6 +38,10 @@ A custom bar/line chart created based in [echarts library](https://echarts.apach
 - label color auto: Let Echarts select the right color.
 
 - label color: select label color. (label color auto option must be off) 
+
+- label border width: Change border width
+
+- label border border: Change border color
 
 
 ### Data Label Settings
@@ -52,6 +64,11 @@ A custom bar/line chart created based in [echarts library](https://echarts.apach
 
 - Align: Horizontal alignment of text.
 
+- Allow Drag&Drop: If this option is ennable allow to users change data label position. (Label border width must be 0)
+
+- Show Lable Line: Place a connected line between the label and the Bar/Line
+
+
 ### Axis Label Settings
 
 ------------
@@ -67,6 +84,11 @@ A custom bar/line chart created based in [echarts library](https://echarts.apach
 - Size: font size.
 
 - Align: Horizontal alignment of text.
+
+- text border width: Change border width
+
+- text border border: Change border color
+
 
 ### On Focus
 
@@ -90,7 +112,17 @@ A custom bar/line chart created based in [echarts library](https://echarts.apach
 
 - Bar Width: Width of the bars, yout can use absolute values like '70' or percentage values like '20%'.
 
-- Max\Min Bar Width: Difine max and min values for bar width. 
+- Max\Min Bar Width: Define max and min values for bar width. 
+
+### yAxis
+
+------------
+
+- visibility: Show/Hide the axis.
+
+- Interval: Choose between custom and auto axis interval. You can set custom Max and Min values.
+
+- Inverse: Invert the axis.
 
 ### Grid Options
 
@@ -117,6 +149,7 @@ A custom bar/line chart created based in [echarts library](https://echarts.apach
 
 ------------
 ![](https://i.imgur.com/X32MBv4.png)
+![](https://i.imgur.com/FNvoj4D.png)
 ![](https://i.imgur.com/2x4x4nc.png)
 ![](https://i.imgur.com/U5t0ou2.png)
 ![](https://i.imgur.com/zgBTdmw.png)

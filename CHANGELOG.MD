@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] - 2021-04-03
+
+### Added
+
+- You can now change the line width;
+- Now you can choose between 'Solid','Dashed' or 'Dotted' line types;
+- Add option to put border on data labels and choose their color;
+- Option to allow users to drag and drop the position of the data label (only works when the border width is 0), with this functionality you can enable the label line option as well;
+- You can define axis label color with expression;
+- You can put border on axis label and choose its color;
+- You can put border on legend text and choose its color;
+- Add 'yAxis: Left' and 'yAxis: Right' settings to define custom max and min values and define its visibility
 
 ## [2.4.0] - 2021-03-31
 
@@ -22,7 +34,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add legend text size option
-
 
 ## [2.2.0] - 2021-03-17
 
