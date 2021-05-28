@@ -540,6 +540,26 @@ define( [], function () {
                                 }],
                                 defaultValue: true
                             },
+                            LegendPosition:{
+                                ref: "settings.legend.position",
+                                type: "string",
+                                label: "Position",
+                                component: "dropdown",
+                                defaultValue: 'top',
+                                options:[
+                                        {value:'top',label: "top"},
+                                        {value:'left',label: "left"},
+                                        {value:'right',label: "right"},
+                                        {value:'bottom',label: "bottom"},
+                                    ]
+                            },
+                            LegendDistance:{
+                                type: "string",
+                                ref: "settings.legend.distance",
+                                label: "Distance",
+                                expression: "optional",
+                                defaultValue: '0%'
+                            },
                             LegendIcon: {
                                 ref: "settings.legend.icon",
                                 type: "string",

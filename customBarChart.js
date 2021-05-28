@@ -1,6 +1,6 @@
 define( [
     'jquery',
-    'https://cdnjs.cloudflare.com/ajax/libs/echarts/5.0.2/echarts.min.js',
+    './echarts.min',
     './properties',
     'qlik'
 ],
@@ -431,12 +431,22 @@ function ( $, echarts, props, qlik ) {
 
     }
 
-    function getLegend(layout){
+    function getLegendPosition(legendLayout){
 
-        var expressionNumber = layout.qHyperCube.qMeasureInfo.length;
+        legendPosition={}
+        legendPosition[legendLayout.position]=legendLayout.distance
+        
+        if(legendLayout.position=='left' || legendLayout.position=='right'){
+            legendPosition.orient='vertical'
 
-        //Legend Data
+        }
+
+        return legendPosition;
+    }
+
+    function geLegendData(layout){
         var legendDataArray=[];
+        var expressionNumber = layout.qHyperCube.qMeasureInfo.length;
 
         for(var x=0;x<expressionNumber;x++){
 
@@ -448,13 +458,28 @@ function ( $, echarts, props, qlik ) {
             legendDataArray[x] =  dataItem
 
         }
-        
+        return legendDataArray;
+    }
 
-        return {
+    function getLegend(layout){
+        
+        var legend={
             show: layout.settings.legend.visibility,
             textStyle: getLegendTextStyle(layout),
-            data: legendDataArray
-        };
+            data:geLegendData(layout)
+        }
+  
+        if(layout.settings.legend.position){
+
+            var legendPosition=getLegendPosition(layout.settings.legend)
+
+            //put the selected position in legend object.
+            for(x in legendPosition){
+                legend[x]=legendPosition[x]
+            }
+        }
+
+        return legend;
 
     }
 
@@ -521,8 +546,8 @@ function ( $, echarts, props, qlik ) {
                 qDimensions : [],
                 qMeasures : [],
                 qInitialDataFetch : [{
-                    qWidth : 10,
-                    qHeight : 1000
+                    qWidth : 16,
+                    qHeight : 625
                 }]
             }
         },
@@ -563,6 +588,8 @@ function ( $, echarts, props, qlik ) {
                 qlik.currApp(this).field(dimensionName).selectValues([params.name],true,true)
 
             });
+
+            return qlik.Promise.resolve();
 
         },
         resize: function($element) {

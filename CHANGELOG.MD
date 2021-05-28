@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] - 2021-05-27
+
+### Addded
+
+- Now you can change legend position;
+- Now you can change legend distance of the corner based in legend position.
+
+### Changed
+
+- Now you can add 15 measures;
+- Paint method return qlik.promise.
+
 ## [2.5.0] - 2021-04-03
 
 ### Added
