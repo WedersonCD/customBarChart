@@ -6,11 +6,12 @@
 
 A custom bar/line chart created based in [echarts library](https://echarts.apache.org/en/index.html "echarts library").
 
-See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CHANGELOG.MD "Changed Log")
+See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CHANGELOG.MD "Changed Log"), updated in 2021-05-27.
 
 - Expression Options
 - Data Label Settings
 - Axis Label Settings
+- Legend
 - On Focus
 - Bar Options
 - yAxis
@@ -88,6 +89,29 @@ See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CH
 - text border width: Change border width
 
 - text border border: Change border color
+
+
+### Axis Label Settings
+
+------------
+
+- visibility: Show/Hide.
+
+- position: legend position.
+
+- distance: distance between the legend and the corner, can be absolute or relative values like 0,20,0%,20% etc.
+
+- legend icon: legend icon shape.
+
+- text size: font size.
+
+- color type: change between single color or color by expression
+
+- text color: text color.
+
+- text border width: width value of the text vorder.
+
+- text border color: color of the border
 
 
 ### On Focus
