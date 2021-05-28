@@ -91,7 +91,7 @@ See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CH
 - text border border: Change border color
 
 
-### Axis Label Settings
+### Legend Settings
 
 ------------
 
