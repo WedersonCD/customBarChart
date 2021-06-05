@@ -669,7 +669,7 @@ define( [], function () {
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 0,
-                                options:[{value:0,label: "Single Color"},{value:1,label:"By Expression"}]
+                                options:[{value:0,label: "Single Color"},{value:1,label:"By Expression"},{value: 2,label:"Keep Colors"}]
                             },
                             FocusSingleColor:{
                                 ref: "settings.focus.item.color",
