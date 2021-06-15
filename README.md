@@ -6,7 +6,7 @@
 
 A custom bar/line chart created based in [echarts library](https://echarts.apache.org/en/index.html "echarts library").
 
-See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CHANGELOG.MD "Changed Log"), updated in 2021-06-05.
+See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CHANGELOG.MD "Changed Log"), updated in 2021-06-11.
 
 - Expression Options
 - Data Label Settings
@@ -30,7 +30,9 @@ See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CH
 
 - line type: If 'type' option is 'Line' you can choose between 'Solid','Dashed' or 'Dotted' line types.
 
--line width: If 'type' option is 'Line' you can define the line width.
+- line width: If 'type' option is 'Line' you can define the line width.
+
+- line symbol size: change the line simbol size
 
 - y-axis: Defines which y-axis the measure will follow.
 
@@ -101,7 +103,9 @@ See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CH
 
 - distance: distance between the legend and the corner, can be absolute or relative values like 0,20,0%,20% etc.
 
-- legend icon: legend icon shape.
+- bar legend icon: legend icon shape of the bar measures.
+
+- line legend icon: legend icon shape of the line measures.
 
 - text size: font size.
 

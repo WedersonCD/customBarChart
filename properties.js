@@ -50,6 +50,16 @@ define( [], function () {
                             return param.qDef.type=="line";
                         }
                     },
+                    LineWidth:{
+                        ref: "qDef.line.symbolSize",
+                        label: "Line Symbol Size",
+                        type: "string",
+                        defaultValue: '4',
+                        expression: "optional",
+                        show: function(param) {
+                            return param.qDef.type=="line";
+                        }
+                    },
                     Yindex:{
                         ref: "qDef.yIndex",
                         label: "y-axis",
@@ -563,7 +573,7 @@ define( [], function () {
                             LegendIcon: {
                                 ref: "settings.legend.icon",
                                 type: "string",
-                                label: "Icon Type",
+                                label: "Bar Icon Type",
                                 component: "dropdown",
                                 defaultValue: 'circle',
                                 options:[
@@ -575,6 +585,25 @@ define( [], function () {
                                         {value:'diamond',label: "diamond"},
                                         {value:'pin',label: "pin"},
                                         {value:'arrow',label: "arrow"},
+                                        {value:'emptyCircle',label:'emptyCircle'}
+                                    ]
+                            },
+                            LegendIconLine: {
+                                ref: "settings.legend.iconLine",
+                                type: "string",
+                                label: "Line Icon Type",
+                                component: "dropdown",
+                                defaultValue: 'emptyCircle',
+                                options:[
+                                        {value:'none',label: "none"},
+                                        {value:'circle',label: "circle"},
+                                        {value:'rect',label: "rect"},
+                                        {value:'roundRect',label: "roundRect"},
+                                        {value:'triangle',label: "triangle"},
+                                        {value:'diamond',label: "diamond"},
+                                        {value:'pin',label: "pin"},
+                                        {value:'arrow',label: "arrow"},
+                                        {value:'emptyCircle',label:'emptyCircle'}
                                     ]
                             },
                             LegendTextSize: {

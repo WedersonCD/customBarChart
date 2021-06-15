@@ -229,7 +229,7 @@ function ( $, echarts, props, qlik ) {
         };
 
         if(measureInfo.line && measureInfo.type=='line'){
-
+            commumProperty.symbolSize= parseInt(measureInfo.line.symbolSize),
             commumProperty.lineStyle={
                 width: parseInt(measureInfo.line.width),
                 type: measureInfo.line.type,
@@ -244,9 +244,6 @@ function ( $, echarts, props, qlik ) {
                 commumProperty.labelLine = getLabelLine(layout,measureInfo)
             }
         }
-
-
-
 
         if(!settings.barOptions.barWidthAuto){
 
@@ -444,15 +441,33 @@ function ( $, echarts, props, qlik ) {
         return legendPosition;
     }
 
+    function getLegendIcon(legendProperty,measureType){
+
+        //If measure type is bar or iconline don't exists
+        if(measureType=='bar' || !legendProperty.iconLine){
+            
+            legendType='icon'
+
+        }else if(measureType=='line'){
+            
+            legendType='iconLine'
+
+        }
+
+        return legendProperty[legendType]
+    }
+
     function geLegendData(layout){
         var legendDataArray=[];
         var expressionNumber = layout.qHyperCube.qMeasureInfo.length;
 
         for(var x=0;x<expressionNumber;x++){
 
+            measureInfo=layout.qHyperCube.qMeasureInfo[x];
+            icon =getLegendIcon(layout.settings.legend,measureInfo.type)
             dataItem={
-                name:layout.qHyperCube.qMeasureInfo[x].qFallbackTitle,
-                icon:layout.settings.legend.icon
+                name:measureInfo.qFallbackTitle,
+                icon: icon
             }
 
             legendDataArray[x] =  dataItem
@@ -589,7 +604,17 @@ function ( $, echarts, props, qlik ) {
 
             });
 
-            return qlik.Promise.resolve();
+            var defer = qlik.Promise.defer();
+
+            /*Alert when the extension finish the rendering and wait one second*/
+            myChart.on('finished', function () {
+                setTimeout(function() {
+                    defer.resolve();
+                }, 1000);
+
+            });
+
+            return defer.promise;
 
         },
         resize: function($element) {

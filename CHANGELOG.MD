@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+
+## [2.8.0] - 2021-06-15
+
+### Addded
+
+- Now you can export the extension as image and PDF. ( It is working on StoryTelling);
+- e-charts version updated to 5.1.2;
+- Now can you select different icons to line and bar measure type;
+- Now can you change the symbol size of line measures.
+
+
 ## [2.7.0] - 2021-06-05
 
 ### Addded
