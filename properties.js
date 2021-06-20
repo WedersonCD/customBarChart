@@ -50,7 +50,7 @@ define( [], function () {
                             return param.qDef.type=="line";
                         }
                     },
-                    LineWidth:{
+                    LineSymbolSize:{
                         ref: "qDef.line.symbolSize",
                         label: "Line Symbol Size",
                         type: "string",
