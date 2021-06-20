@@ -6,7 +6,7 @@
 
 A custom bar/line chart created based in [echarts library](https://echarts.apache.org/en/index.html "echarts library").
 
-See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CHANGELOG.MD "Changed Log"), updated in 2021-06-15.
+See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CHANGELOG.MD "Changed Log"), updated in 2021-06-20.
 
 - Expression Options
 - Data Label Settings

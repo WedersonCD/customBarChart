@@ -229,9 +229,10 @@ function ( $, echarts, props, qlik ) {
         };
 
         if(measureInfo.line && measureInfo.type=='line'){
+
             commumProperty.symbolSize= parseInt(measureInfo.line.symbolSize),
             commumProperty.lineStyle={
-                width: parseInt(measureInfo.line.width),
+                width: measureInfo.line.width,
                 type: measureInfo.line.type,
             }
         }
