@@ -1,5 +1,5 @@
 
-define( [], function () {
+define([], function () {
 
     return {
         type: "items",
@@ -13,69 +13,198 @@ define( [], function () {
             measures: {
                 uses: "measures",
                 min: 1,
-                items:{
-                    Stack:{
+                items: {
+                    CustomDataLabelUse: {
+                        ref: "qDef.customDataLabel.use",
+                        type: "boolean",
+                        component: "switch",
+                        label: "Use Custom Data Label",
+                        options: [{
+                            value: true,
+                            label: "On"
+                        }, {
+                            value: false,
+                            label: "Off"
+                        }],
+                        defaultValue: false
+                    },
+                    CustomDataLabel: {
+                        type: "string",
+                        ref: "qAttributeExpressions.1.qExpression",
+                        label: "Custom Data Label",
+                        component: "expression",
+                        defaultValue: "='My Measure Title'&chr(10)&Money(column(1))",
+                        show: function (param) {
+                            return param.qDef.customDataLabel && param.qDef.customDataLabel.use;
+                        }
+                    },
+                    GlobalSettingsUse: {
+                        ref: "qDef.globalSettings.use",
+                        type: "boolean",
+                        component: "switch",
+                        label: "Use Global Settings",
+                        options: [{
+                            value: true,
+                            label: "On"
+                        }, {
+                            value: false,
+                            label: "Off"
+                        }],
+                        defaultValue: true
+                    },
+
+                    GlobalSettingsDataLabelVisibility: {
+                        ref: "qDef.globalSettings.dataLabel.visibility",
+                        type: "boolean",
+                        component: "switch",
+                        label: "Data Label Visibility",
+                        options: [{
+                            value: true,
+                            label: "Show"
+                        }, {
+                            value: false,
+                            label: "Hide"
+                        }],
+                        defaultValue: true,
+                        show: function (param) {
+                            return param.qDef.globalSettings && !param.qDef.globalSettings.use
+                        }
+                    },
+                    LabelDistance: {
+                        ref: "qDef.globalSettings.dataLabel.distance",
+                        label: "Data Label Distance",
+                        type: "string",
+                        defaultValue: '5',
+                        expression: "optional",
+                        show: function (param) {
+                            return param.qDef.globalSettings && !param.qDef.globalSettings.use
+                        }
+                    },
+                    LabelRotate: {
+                        type: "number",
+                        component: "slider",
+                        label: "Data Label Rotate",
+                        ref: "qDef.globalSettings.dataLabel.rotate",
+                        min: -90,
+                        max: 90,
+                        step: 1,
+                        defaultValue: 0,
+                        show: function (param) {
+                            return param.qDef.globalSettings && !param.qDef.globalSettings.use
+                        }
+                    },
+                    LabelPosition: {
+                        ref: "qDef.globalSettings.dataLabel.position",
+                        label: "Data Label Position",
+                        type: "string",
+                        component: "dropdown",
+                        defaultValue: 'inside',
+                        options: [
+                            { value: "bottom", label: "bottom" },
+                            { value: "inside", label: "inside" },
+                            { value: "insideBottom", label: "insideBottom" },
+                            { value: "insideBottomLeft", label: "insideBottomLeft" },
+                            { value: "insideBottomRight", label: "insideBottomRight" },
+                            { value: "insideLeft", label: "insideLeft" },
+                            { value: "insideRight", label: "insideRight" },
+                            { value: "insideTop", label: "insideTop" },
+                            { value: "insideTopLeft", label: "insideTopLeft" },
+                            { value: "insideTopRight", label: "insideTopRight" },
+                            { value: "left", label: "left" },
+                            { value: "right", label: "right" },
+                            { value: "top", label: "top" }
+                        ],
+                        show: function (param) {
+                            return param.qDef.globalSettings && !param.qDef.globalSettings.use
+                        }
+                    },
+                    LabelFontSize: {
+                        ref: "qDef.globalSettings.dataLabel.size",
+                        label: "Data Label Size",
+                        type: "string",
+                        defaultValue: '15',
+                        expression: "optional",
+                        show: function (param) {
+                            return param.qDef.globalSettings && !param.qDef.globalSettings.use
+                        }
+                    },
+                    LabelFontAlign: {
+                        ref: "qDef.globalSettings.dataLabel.align",
+                        label: "Data Label Align",
+                        type: "string",
+                        component: "dropdown",
+                        defaultValue: 'center',
+                        options: [
+                            { value: "left", label: "left" },
+                            { value: "center", label: "center" },
+                            { value: "right", label: "right" }
+                        ],
+                        show: function (param) {
+                            return param.qDef.globalSettings && !param.qDef.globalSettings.use
+                        }
+                    },
+                    Stack: {
                         ref: "qDef.stack",
                         label: "stack",
                         type: "string",
                         defaultValue: '',
                         expression: "optional"
                     },
-                    Type:{
+                    Type: {
                         ref: "qDef.type",
                         label: "type",
                         type: "string",
                         component: "dropdown",
                         defaultValue: 'bar',
-                        options:[{value:"bar",label: "bar"},{value:"line",label:"line"}]
+                        options: [{ value: "bar", label: "bar" }, { value: "line", label: "line" }]
                     },
-                    LineType:{
+                    LineType: {
                         ref: "qDef.line.type",
                         label: "Line Type",
                         type: "string",
                         component: "dropdown",
                         defaultValue: 'solid',
-                        options:[{value:"solid",label: "solid"},{value:"dashed",label:"dashed"},{value:"dotted",label:"dotted"}],
-                        show: function(param) {
-                            return param.qDef.type=="line";
+                        options: [{ value: "solid", label: "solid" }, { value: "dashed", label: "dashed" }, { value: "dotted", label: "dotted" }],
+                        show: function (param) {
+                            return param.qDef.type == "line";
                         }
                     },
-                    LineWidth:{
+                    LineWidth: {
                         ref: "qDef.line.width",
                         label: "Line Width",
                         type: "string",
                         defaultValue: '2',
                         expression: "optional",
-                        show: function(param) {
-                            return param.qDef.type=="line";
+                        show: function (param) {
+                            return param.qDef.type == "line";
                         }
                     },
-                    LineSymbolSize:{
+                    LineSymbolSize: {
                         ref: "qDef.line.symbolSize",
                         label: "Line Symbol Size",
                         type: "string",
                         defaultValue: '4',
                         expression: "optional",
-                        show: function(param) {
-                            return param.qDef.type=="line";
+                        show: function (param) {
+                            return param.qDef.type == "line";
                         }
                     },
-                    Yindex:{
+                    Yindex: {
                         ref: "qDef.yIndex",
                         label: "y-axis",
                         type: "string",
                         component: "dropdown",
                         defaultValue: '0',
-                        options:[{value:"0",label: "left"},{value:"1",label:"right"}]
+                        options: [{ value: "0", label: "left" }, { value: "1", label: "right" }]
                     },
                     ColorType: {
                         ref: "qDef.colorType",
                         type: "string",
                         component: "dropdown",
                         defaultValue: 0,
-                        options:[{value:0,label: "Single Color"},{value:1,label:"By Expression"}]
+                        options: [{ value: 0, label: "Single Color" }, { value: 1, label: "By Expression" }]
                     },
-                    SingleColor:{
+                    SingleColor: {
                         ref: "qDef.color",
                         component: "color-picker",
                         label: "Item Color",
@@ -84,8 +213,8 @@ define( [], function () {
                             color: "#4477aa",
                             index: "-1"
                         },
-                        show: function(param) {
-                            return param.qDef.colorType==0;
+                        show: function (param) {
+                            return param.qDef.colorType == 0;
                         }
                     },
                     ColorByExpression: {
@@ -94,8 +223,8 @@ define( [], function () {
                         label: "Item Color",
                         component: "expression",
                         defaultValue: "='#000'",
-                        show: function(param) {
-                            return param.qDef.colorType==1;
+                        show: function (param) {
+                            return param.qDef.colorType == 1;
                         }
                     },
                     LabelAutoColor: {
@@ -112,7 +241,7 @@ define( [], function () {
                         }],
                         defaultValue: true
                     },
-                    LabelColor:{
+                    LabelColor: {
                         ref: "qDef.dataLabel.color",
                         component: "color-picker",
                         label: "Label Color",
@@ -120,32 +249,32 @@ define( [], function () {
                         defaultValue: {
                             color: "#fff",
                             index: "-1"
-                          },
-                          show: function(param) {
-                            return !param.qDef.dataLabel.auto && param.qDef.colorType==0;
+                        },
+                        show: function (param) {
+                            return !param.qDef.dataLabel.auto && param.qDef.colorType == 0;
                         }
                     },
-                    LabelColorByExpression:{
+                    LabelColorByExpression: {
                         type: "string",
                         ref: "qDef.dataLabel.colorExpression",
                         label: "Label Color",
                         defaultValue: '#000',
                         expression: "optional",
-                        show: function(param) {
-                            return !param.qDef.dataLabel.auto && param.qDef.colorType==1;
+                        show: function (param) {
+                            return !param.qDef.dataLabel.auto && param.qDef.colorType == 1;
                         }
                     },
-                    LabelBorderWidth:{
+                    LabelBorderWidth: {
                         type: "string",
                         ref: "qDef.dataLabel.border.width",
                         label: "Label Border Width",
                         defaultValue: '0',
                         expression: "optional",
-                        show: function(param) {
+                        show: function (param) {
                             return !param.qDef.dataLabel.auto
                         }
                     },
-                    LabelBorderColor:{
+                    LabelBorderColor: {
                         ref: "qDef.dataLabel.border.color",
                         component: "color-picker",
                         label: "Label Border Color",
@@ -153,29 +282,29 @@ define( [], function () {
                         defaultValue: {
                             color: "#fff",
                             index: "-1"
-                          },
-                          show: function(param) {
-                            return !param.qDef.dataLabel.auto && param.qDef.colorType==0;
+                        },
+                        show: function (param) {
+                            return !param.qDef.dataLabel.auto && param.qDef.colorType == 0;
                         }
                     },
-                    LabelBorderColorByExpression:{
+                    LabelBorderColorByExpression: {
                         type: "string",
                         ref: "qDef.dataLabel.border.colorExpression",
                         label: "Label Border Color",
                         defaultValue: '#000',
                         expression: "optional",
-                        show: function(param) {
-                            return !param.qDef.dataLabel.auto && param.qDef.colorType==1;
+                        show: function (param) {
+                            return !param.qDef.dataLabel.auto && param.qDef.colorType == 1;
                         }
                     },
-                    
+
                 }
             },
-            Settings:{
+            Settings: {
                 component: "expandable-items",
-                label: "Settings",
-                items:{
-                    DataLabel:{
+                label: "Global Settings",
+                items: {
+                    DataLabel: {
                         type: "items",
                         label: "Data Label",
                         items: {
@@ -210,51 +339,51 @@ define( [], function () {
                                 step: 1,
                                 defaultValue: 0
                             },
-                            LabelPosition:{
+                            LabelPosition: {
                                 ref: "settings.dataLabel.position",
                                 label: "Position",
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 'inside',
-                                options:[
-                                    {value:"bottom",label:"bottom"},
-                                    {value:"inside",label:"inside"},
-                                    {value:"insideBottom",label:"insideBottom"},
-                                    {value:"insideBottomLeft",label:"insideBottomLeft"},
-                                    {value:"insideBottomRight",label:"insideBottomRight"},
-                                    {value:"insideLeft",label:"insideLeft"},
-                                    {value:"insideRight",label:"insideRight"},
-                                    {value:"insideTop",label:"insideTop"},
-                                    {value:"insideTopLeft",label:"insideTopLeft"},
-                                    {value:"insideTopRight",label:"insideTopRight"},
-                                    {value:"left",label:"left"},
-                                    {value:"right",label:"right"},
-                                    {value:"top",label:"top"}
+                                options: [
+                                    { value: "bottom", label: "bottom" },
+                                    { value: "inside", label: "inside" },
+                                    { value: "insideBottom", label: "insideBottom" },
+                                    { value: "insideBottomLeft", label: "insideBottomLeft" },
+                                    { value: "insideBottomRight", label: "insideBottomRight" },
+                                    { value: "insideLeft", label: "insideLeft" },
+                                    { value: "insideRight", label: "insideRight" },
+                                    { value: "insideTop", label: "insideTop" },
+                                    { value: "insideTopLeft", label: "insideTopLeft" },
+                                    { value: "insideTopRight", label: "insideTopRight" },
+                                    { value: "left", label: "left" },
+                                    { value: "right", label: "right" },
+                                    { value: "top", label: "top" }
                                 ]
                             },
-                            LabelFontStyle:{
+                            LabelFontStyle: {
                                 ref: "settings.dataLabel.style",
                                 label: "Style",
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 'normal',
-                                options:[
-                                    {value:"normal",label:"normal"},
-                                    {value:"italic",label:"italic"},
-                                    {value:"oblique",label:"oblique"}
+                                options: [
+                                    { value: "normal", label: "normal" },
+                                    { value: "italic", label: "italic" },
+                                    { value: "oblique", label: "oblique" }
                                 ]
                             },
-                            LabelFontWeight:{
+                            LabelFontWeight: {
                                 ref: "settings.dataLabel.weight",
                                 label: "Weight",
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 'normal',
-                                options:[
-                                    {value:"normal",label:"normal"},
-                                    {value:"bold",label:"bold"},
-                                    {value:"bolder",label:"bolder"},
-                                    {value:"lighter",label:"lighter"}
+                                options: [
+                                    { value: "normal", label: "normal" },
+                                    { value: "bold", label: "bold" },
+                                    { value: "bolder", label: "bolder" },
+                                    { value: "lighter", label: "lighter" }
 
                                 ]
                             },
@@ -265,16 +394,16 @@ define( [], function () {
                                 defaultValue: '15',
                                 expression: "optional"
                             },
-                            LabelFontAlign:{
+                            LabelFontAlign: {
                                 ref: "settings.dataLabel.align",
                                 label: "Align",
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 'center',
-                                options:[
-                                    {value:"left",label:"left"},
-                                    {value:"center",label:"center"},
-                                    {value:"right",label:"right"}
+                                options: [
+                                    { value: "left", label: "left" },
+                                    { value: "center", label: "center" },
+                                    { value: "right", label: "right" }
 
                                 ]
                             },
@@ -293,9 +422,9 @@ define( [], function () {
                                 defaultValue: false
                             },
                             LabelDragText: {
-                                label:"Label dragging only works when label border width is 0.",
+                                label: "Label dragging only works when label border width is 0.",
                                 component: "text",
-                                show: function(param){
+                                show: function (param) {
                                     return param.settings.dataLabel.drag.isDraggable
                                 }
                             },
@@ -312,7 +441,7 @@ define( [], function () {
                                     label: "Off"
                                 }],
                                 defaultValue: false,
-                                show: function(param){
+                                show: function (param) {
                                     return param.settings.dataLabel.drag.isDraggable
                                 }
                             },
@@ -322,12 +451,12 @@ define( [], function () {
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 0,
-                                options:[{value:0,label: "Single Color"},{value:1,label:"By Expression"},{value:2,label:"Use Label Color"}],
-                                show: function(param){
+                                options: [{ value: 0, label: "Single Color" }, { value: 1, label: "By Expression" }, { value: 2, label: "Use Label Color" }],
+                                show: function (param) {
                                     return param.settings.dataLabel.labelLine.show && param.settings.dataLabel.drag.isDraggable
                                 }
                             },
-                            LabelLabelLineColor:{
+                            LabelLabelLineColor: {
                                 ref: "settings.dataLabel.labelLine.color",
                                 component: "color-picker",
                                 label: "Line Color",
@@ -336,11 +465,11 @@ define( [], function () {
                                     color: "#000",
                                     index: "-1"
                                 },
-                                show: function(param) {
+                                show: function (param) {
                                     thisParam = param.settings.dataLabel
-                                    return  param.settings.dataLabel.labelLine.show &&
-                                            param.settings.dataLabel.drag.isDraggable &&
-                                            param.settings.dataLabel.labelLine.colorType==0
+                                    return param.settings.dataLabel.labelLine.show &&
+                                        param.settings.dataLabel.drag.isDraggable &&
+                                        param.settings.dataLabel.labelLine.colorType == 0
                                 }
                             },
                             LabelLabelLineColorExpression: {
@@ -349,10 +478,10 @@ define( [], function () {
                                 type: "string",
                                 defaultValue: '#000',
                                 expression: "optional",
-                                show: function(param) {
+                                show: function (param) {
                                     return param.settings.dataLabel.labelLine.show &&
-                                    param.settings.dataLabel.drag.isDraggable &&
-                                    param.settings.dataLabel.labelLine.colorType==1
+                                        param.settings.dataLabel.drag.isDraggable &&
+                                        param.settings.dataLabel.labelLine.colorType == 1
                                 }
                             },
                             LabelLabelLineWidth: {
@@ -361,9 +490,9 @@ define( [], function () {
                                 type: "string",
                                 defaultValue: '1',
                                 expression: "optional",
-                                show: function(param) {
+                                show: function (param) {
                                     return param.settings.dataLabel.labelLine.show &&
-                                    param.settings.dataLabel.drag.isDraggable
+                                        param.settings.dataLabel.drag.isDraggable
                                 }
                             },
                             LabelLabelLineOpacity: {
@@ -372,30 +501,30 @@ define( [], function () {
                                 type: "string",
                                 defaultValue: '1',
                                 expression: "optional",
-                                show: function(param) {
+                                show: function (param) {
                                     thisParam = param.settings.dataLabel
                                     return thisParam.labelLine.show && thisParam.drag.isDraggable
                                 }
                             },
-                            LabelLabelLineType:{
+                            LabelLabelLineType: {
                                 ref: "settings.dataLabel.labelLine.type",
                                 label: "Line Type",
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 'solid',
-                                options:[
-                                    {value:"solid",label:"solid"},
-                                    {value:"dashed",label:"dashed"},
-                                    {value:"dotted",label:"dotted"}
+                                options: [
+                                    { value: "solid", label: "solid" },
+                                    { value: "dashed", label: "dashed" },
+                                    { value: "dotted", label: "dotted" }
                                 ],
-                                show: function(param) {
+                                show: function (param) {
                                     thisParam = param.settings.dataLabel
                                     return thisParam.labelLine.show && thisParam.drag.isDraggable
                                 }
                             },
                         }
                     },
-                    AxisLabel:{
+                    AxisLabel: {
                         type: "items",
                         label: "Axis Label",
                         items: {
@@ -423,30 +552,30 @@ define( [], function () {
                                 step: 1,
                                 defaultValue: 0
                             },
-                            LabelFontStyle:{
+                            LabelFontStyle: {
                                 ref: "settings.axisLabel.style",
                                 label: "Style",
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 'normal',
-                                options:[
-                                    {value:"normal",label:"normal"},
-                                    {value:"italic",label:"italic"},
-                                    {value:"oblique",label:"oblique"}
+                                options: [
+                                    { value: "normal", label: "normal" },
+                                    { value: "italic", label: "italic" },
+                                    { value: "oblique", label: "oblique" }
                                 ]
                             },
-                            LabelFontWeight:{
+                            LabelFontWeight: {
                                 ref: "settings.axisLabel.weight",
                                 label: "Weight",
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 'normal',
-                                options:[
-                                    {value:"normal",label:"normal"},
-                                    {value:"bold",label:"bold"},
-                                    {value:"bolder",label:"bolder"},
-                                    {value:"lighter",label:"lighter"}
-                    
+                                options: [
+                                    { value: "normal", label: "normal" },
+                                    { value: "bold", label: "bold" },
+                                    { value: "bolder", label: "bolder" },
+                                    { value: "lighter", label: "lighter" }
+
                                 ]
                             },
                             LabelFontSize: {
@@ -456,17 +585,17 @@ define( [], function () {
                                 defaultValue: '15',
                                 expression: "optional"
                             },
-                            LabelFontAlign:{
+                            LabelFontAlign: {
                                 ref: "settings.axisLabel.align",
                                 label: "Align",
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 'center',
-                                options:[
-                                    {value:"left",label:"left"},
-                                    {value:"center",label:"center"},
-                                    {value:"right",label:"right"}
-                    
+                                options: [
+                                    { value: "left", label: "left" },
+                                    { value: "center", label: "center" },
+                                    { value: "right", label: "right" }
+
                                 ]
                             },
                             LabelColorType: {
@@ -474,7 +603,7 @@ define( [], function () {
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 0,
-                                options:[{value:0,label: "Single Color"},{value:1,label:"By Expression"}],
+                                options: [{ value: 0, label: "Single Color" }, { value: 1, label: "By Expression" }],
 
                             },
                             LabelColor: {
@@ -486,28 +615,28 @@ define( [], function () {
                                     color: "#333",
                                     index: "-2"
                                 },
-                                show: function(param) {
-                                    return param.settings.axisLabel.colorType==0;
+                                show: function (param) {
+                                    return param.settings.axisLabel.colorType == 0;
                                 }
                             },
-                            LabelColorByExpression:{
+                            LabelColorByExpression: {
                                 type: "string",
                                 ref: "settings.axisLabel.colorByExpression",
                                 label: "Text Color",
                                 defaultValue: '#333',
                                 expression: "optional",
-                                show: function(param) {
-                                    return param.settings.axisLabel.colorType==1;
+                                show: function (param) {
+                                    return param.settings.axisLabel.colorType == 1;
                                 }
                             },
-                            LabelBorderWidth:{
+                            LabelBorderWidth: {
                                 type: "string",
                                 ref: "settings.axisLabel.border.width",
                                 label: "Text Border Width",
                                 defaultValue: '0',
                                 expression: "optional"
                             },
-                            LabelBorderColor:{
+                            LabelBorderColor: {
                                 ref: "settings.axisLabel.border.color",
                                 component: "color-picker",
                                 label: "Text Border Color",
@@ -515,24 +644,24 @@ define( [], function () {
                                 defaultValue: {
                                     color: "#fff",
                                     index: "-1"
-                                  },
-                                  show: function(param) {
-                                    return param.settings.axisLabel.colorType==0;
+                                },
+                                show: function (param) {
+                                    return param.settings.axisLabel.colorType == 0;
                                 }
                             },
-                            LabelBorderColorByExpression:{
+                            LabelBorderColorByExpression: {
                                 type: "string",
                                 ref: "settings.axisLabel.border.colorByExpression",
                                 label: "Text Border Color",
                                 defaultValue: '#fff',
                                 expression: "optional",
-                                show: function(param) {
-                                    return param.settings.axisLabel.colorType==1;
+                                show: function (param) {
+                                    return param.settings.axisLabel.colorType == 1;
                                 }
                             },
                         }
                     },
-                    Legend:{
+                    Legend: {
                         type: "items",
                         label: "Legend",
                         items: {
@@ -550,20 +679,20 @@ define( [], function () {
                                 }],
                                 defaultValue: true
                             },
-                            LegendPosition:{
+                            LegendPosition: {
                                 ref: "settings.legend.position",
                                 type: "string",
                                 label: "Position",
                                 component: "dropdown",
                                 defaultValue: 'top',
-                                options:[
-                                        {value:'top',label: "top"},
-                                        {value:'left',label: "left"},
-                                        {value:'right',label: "right"},
-                                        {value:'bottom',label: "bottom"},
-                                    ]
+                                options: [
+                                    { value: 'top', label: "top" },
+                                    { value: 'left', label: "left" },
+                                    { value: 'right', label: "right" },
+                                    { value: 'bottom', label: "bottom" },
+                                ]
                             },
-                            LegendDistance:{
+                            LegendDistance: {
                                 type: "string",
                                 ref: "settings.legend.distance",
                                 label: "Distance",
@@ -576,17 +705,17 @@ define( [], function () {
                                 label: "Bar Icon Type",
                                 component: "dropdown",
                                 defaultValue: 'circle',
-                                options:[
-                                        {value:'none',label: "none"},
-                                        {value:'circle',label: "circle"},
-                                        {value:'rect',label: "rect"},
-                                        {value:'roundRect',label: "roundRect"},
-                                        {value:'triangle',label: "triangle"},
-                                        {value:'diamond',label: "diamond"},
-                                        {value:'pin',label: "pin"},
-                                        {value:'arrow',label: "arrow"},
-                                        {value:'emptyCircle',label:'emptyCircle'}
-                                    ]
+                                options: [
+                                    { value: 'none', label: "none" },
+                                    { value: 'circle', label: "circle" },
+                                    { value: 'rect', label: "rect" },
+                                    { value: 'roundRect', label: "roundRect" },
+                                    { value: 'triangle', label: "triangle" },
+                                    { value: 'diamond', label: "diamond" },
+                                    { value: 'pin', label: "pin" },
+                                    { value: 'arrow', label: "arrow" },
+                                    { value: 'emptyCircle', label: 'emptyCircle' }
+                                ]
                             },
                             LegendIconLine: {
                                 ref: "settings.legend.iconLine",
@@ -594,17 +723,17 @@ define( [], function () {
                                 label: "Line Icon Type",
                                 component: "dropdown",
                                 defaultValue: 'emptyCircle',
-                                options:[
-                                        {value:'none',label: "none"},
-                                        {value:'circle',label: "circle"},
-                                        {value:'rect',label: "rect"},
-                                        {value:'roundRect',label: "roundRect"},
-                                        {value:'triangle',label: "triangle"},
-                                        {value:'diamond',label: "diamond"},
-                                        {value:'pin',label: "pin"},
-                                        {value:'arrow',label: "arrow"},
-                                        {value:'emptyCircle',label:'emptyCircle'}
-                                    ]
+                                options: [
+                                    { value: 'none', label: "none" },
+                                    { value: 'circle', label: "circle" },
+                                    { value: 'rect', label: "rect" },
+                                    { value: 'roundRect', label: "roundRect" },
+                                    { value: 'triangle', label: "triangle" },
+                                    { value: 'diamond', label: "diamond" },
+                                    { value: 'pin', label: "pin" },
+                                    { value: 'arrow', label: "arrow" },
+                                    { value: 'emptyCircle', label: 'emptyCircle' }
+                                ]
                             },
                             LegendTextSize: {
                                 type: "string",
@@ -618,9 +747,9 @@ define( [], function () {
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 0,
-                                options:[{value:0,label: "Single Color"},{value:1,label:"By Expression"}]
+                                options: [{ value: 0, label: "Single Color" }, { value: 1, label: "By Expression" }]
                             },
-                            LegendSingleColor:{
+                            LegendSingleColor: {
                                 ref: "settings.legend.text.color",
                                 component: "color-picker",
                                 label: "Text Color",
@@ -629,8 +758,8 @@ define( [], function () {
                                     color: "#4477aa",
                                     index: "-1"
                                 },
-                                show: function(param) {
-                                    return param.settings.legend.colorType==0;
+                                show: function (param) {
+                                    return param.settings.legend.colorType == 0;
                                 }
                             },
                             LegendColorByExpression: {
@@ -639,18 +768,18 @@ define( [], function () {
                                 label: "Text Color",
                                 expression: "optional",
                                 defaultValue: '',
-                                show: function(param) {
-                                    return param.settings.legend.colorType==1;
+                                show: function (param) {
+                                    return param.settings.legend.colorType == 1;
                                 }
                             },
-                            LegendBorderWidth:{
+                            LegendBorderWidth: {
                                 type: "string",
                                 ref: "settings.legend.text.border.width",
                                 label: "Text Border Width",
                                 defaultValue: '0',
                                 expression: "optional"
                             },
-                            LegendBorderColor:{
+                            LegendBorderColor: {
                                 ref: "settings.legend.text.border.color",
                                 component: "color-picker",
                                 label: "Text Border Color",
@@ -658,28 +787,28 @@ define( [], function () {
                                 defaultValue: {
                                     color: "#fff",
                                     index: "-1"
-                                  },
-                                  show: function(param) {
-                                    return param.settings.legend.colorType==0;
+                                },
+                                show: function (param) {
+                                    return param.settings.legend.colorType == 0;
                                 }
                             },
-                            LegendBorderColorByExpression:{
+                            LegendBorderColorByExpression: {
                                 type: "string",
                                 ref: "settings.legend.text.border.colorByExpression",
                                 label: "Text Border Color",
                                 defaultValue: '#fff',
                                 expression: "optional",
-                                show: function(param) {
-                                    return param.settings.legend.colorType==1;
+                                show: function (param) {
+                                    return param.settings.legend.colorType == 1;
                                 }
                             },
                         }
                     },
-                    Focus:{
+                    Focus: {
                         type: "items",
                         label: "On Focus",
                         items: {
-                            FocusOn:{
+                            FocusOn: {
                                 ref: "settings.focus.on",
                                 type: "boolean",
                                 component: "switch",
@@ -698,9 +827,9 @@ define( [], function () {
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 0,
-                                options:[{value:0,label: "Single Color"},{value:1,label:"By Expression"},{value: 2,label:"Keep Colors"}]
+                                options: [{ value: 0, label: "Single Color" }, { value: 1, label: "By Expression" }, { value: 2, label: "Keep Colors" }]
                             },
-                            FocusSingleColor:{
+                            FocusSingleColor: {
                                 ref: "settings.focus.item.color",
                                 component: "color-picker",
                                 label: "Color",
@@ -709,8 +838,8 @@ define( [], function () {
                                     color: "#4477aa",
                                     index: "-1"
                                 },
-                                show: function(param) {
-                                    return param.settings.focus.colorType==0;
+                                show: function (param) {
+                                    return param.settings.focus.colorType == 0;
                                 }
                             },
                             FocusColorByExpression: {
@@ -719,11 +848,11 @@ define( [], function () {
                                 label: "Color",
                                 expression: "optional",
                                 defaultValue: '',
-                                show: function(param) {
-                                    return param.settings.focus.colorType==1;
+                                show: function (param) {
+                                    return param.settings.focus.colorType == 1;
                                 }
                             },
-                            FocusLabelSingleColor:{
+                            FocusLabelSingleColor: {
                                 ref: "settings.focus.label.color",
                                 component: "color-picker",
                                 label: "Label Color",
@@ -732,8 +861,8 @@ define( [], function () {
                                     color: "#4477aa",
                                     index: "-1"
                                 },
-                                show: function(param) {
-                                    return param.settings.focus.colorType==0;
+                                show: function (param) {
+                                    return param.settings.focus.colorType == 0;
                                 }
                             },
                             FocusLabelColorByExpression: {
@@ -742,8 +871,8 @@ define( [], function () {
                                 label: "Label Color",
                                 expression: "optional",
                                 defaultValue: '',
-                                show: function(param) {
-                                    return param.settings.focus.colorType==1;
+                                show: function (param) {
+                                    return param.settings.focus.colorType == 1;
                                 }
                             },
                             FocusLabelSize: {
@@ -757,10 +886,10 @@ define( [], function () {
                         }
 
                     },
-                    BarOptions:{
+                    BarOptions: {
                         type: "items",
                         label: "Bar Options",
-                        items:{
+                        items: {
                             BarGap: {
                                 ref: "settings.barOptions.barGap",
                                 label: "Bar Gap",
@@ -768,7 +897,7 @@ define( [], function () {
                                 defaultValue: '0',
                                 expression: "optional"
                             },
-                            BarWidthAuto:{
+                            BarWidthAuto: {
                                 ref: "settings.barOptions.barWidthAuto",
                                 type: "boolean",
                                 component: "switch",
@@ -788,7 +917,7 @@ define( [], function () {
                                 type: "string",
                                 defaultValue: '40',
                                 expression: "optional",
-                                show: function(param) {
+                                show: function (param) {
                                     return !param.settings.barOptions.barWidthAuto;
                                 }
                             },
@@ -798,7 +927,7 @@ define( [], function () {
                                 type: "string",
                                 defaultValue: '100%',
                                 expression: "optional",
-                                show: function(param) {
+                                show: function (param) {
                                     return !param.settings.barOptions.barWidthAuto;
                                 }
                             },
@@ -808,17 +937,17 @@ define( [], function () {
                                 type: "string",
                                 defaultValue: '1',
                                 expression: "optional",
-                                show: function(param) {
+                                show: function (param) {
                                     return !param.settings.barOptions.barWidthAuto;
                                 }
                             },
-                        }                      
+                        }
                     },
-                    yAxisLeft:{
+                    yAxisLeft: {
                         type: "items",
                         label: "yAxis: Left",
                         items: {
-                            yAxisLeftShow:{
+                            yAxisLeftShow: {
                                 label: "Visibility",
                                 ref: "settings.yAxis.left.show",
                                 type: "boolean",
@@ -832,7 +961,7 @@ define( [], function () {
                                 }],
                                 defaultValue: false
                             },
-                            yAxisLeftAutoValues:{
+                            yAxisLeftAutoValues: {
                                 ref: "settings.yAxis.left.autoInterval",
                                 type: "boolean",
                                 component: "switch",
@@ -851,40 +980,40 @@ define( [], function () {
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 0,
-                                options:[{value:0,label: "Min"},{value:1,label:"Max"},{value:2,label:"Min/Max"}],
-                                show: function(param){
+                                options: [{ value: 0, label: "Min" }, { value: 1, label: "Max" }, { value: 2, label: "Min/Max" }],
+                                show: function (param) {
                                     return !param.settings.yAxis.left.autoInterval
                                 }
                             },
-                            yAxisLeftMin:{
+                            yAxisLeftMin: {
                                 ref: "settings.yAxis.left.min",
                                 label: "Min",
                                 type: "string",
                                 defaultValue: '0',
                                 expression: "optional",
-                                show: function(param){
+                                show: function (param) {
                                     return !param.settings.yAxis.left.autoInterval &&
-                                            (
-                                                param.settings.yAxis.left.intervalType==0 ||
-                                                param.settings.yAxis.left.intervalType==2 
-                                            )
+                                        (
+                                            param.settings.yAxis.left.intervalType == 0 ||
+                                            param.settings.yAxis.left.intervalType == 2
+                                        )
                                 }
                             },
-                            yAxisLeftMax:{
+                            yAxisLeftMax: {
                                 ref: "settings.yAxis.left.max",
                                 label: "Max",
                                 type: "string",
                                 defaultValue: '100',
                                 expression: "optional",
-                                show: function(param){
+                                show: function (param) {
                                     return !param.settings.yAxis.left.autoInterval &&
-                                            (
-                                                param.settings.yAxis.left.intervalType==1 ||
-                                                param.settings.yAxis.left.intervalType==2 
-                                            )
+                                        (
+                                            param.settings.yAxis.left.intervalType == 1 ||
+                                            param.settings.yAxis.left.intervalType == 2
+                                        )
                                 }
                             },
-                            yAxisLeftInverse:{
+                            yAxisLeftInverse: {
                                 ref: "settings.yAxis.left.inverse",
                                 type: "boolean",
                                 component: "switch",
@@ -900,11 +1029,11 @@ define( [], function () {
                             },
                         }
                     },
-                    yAxisRight:{
+                    yAxisRight: {
                         type: "items",
                         label: "yAxis: Right",
                         items: {
-                            yAxisRightShow:{
+                            yAxisRightShow: {
                                 label: "Visibility",
                                 ref: "settings.yAxis.right.show",
                                 type: "boolean",
@@ -918,7 +1047,7 @@ define( [], function () {
                                 }],
                                 defaultValue: false
                             },
-                            yAxisRightAutoValues:{
+                            yAxisRightAutoValues: {
                                 ref: "settings.yAxis.right.autoInterval",
                                 type: "boolean",
                                 component: "switch",
@@ -937,40 +1066,40 @@ define( [], function () {
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 0,
-                                options:[{value:0,label: "Min"},{value:1,label:"Max"},{value:2,label:"Min/Max"}],
-                                show: function(param){
+                                options: [{ value: 0, label: "Min" }, { value: 1, label: "Max" }, { value: 2, label: "Min/Max" }],
+                                show: function (param) {
                                     return !param.settings.yAxis.right.autoInterval
                                 }
                             },
-                            yAxisRightMin:{
+                            yAxisRightMin: {
                                 ref: "settings.yAxis.right.min",
                                 label: "Min",
                                 type: "string",
                                 defaultValue: '0',
                                 expression: "optional",
-                                show: function(param){
+                                show: function (param) {
                                     return !param.settings.yAxis.right.autoInterval &&
-                                            (
-                                                param.settings.yAxis.right.intervalType==0 ||
-                                                param.settings.yAxis.right.intervalType==2 
-                                            )
+                                        (
+                                            param.settings.yAxis.right.intervalType == 0 ||
+                                            param.settings.yAxis.right.intervalType == 2
+                                        )
                                 }
                             },
-                            yAxisRightMax:{
+                            yAxisRightMax: {
                                 ref: "settings.yAxis.right.max",
                                 label: "Max",
                                 type: "string",
                                 defaultValue: '100',
                                 expression: "optional",
-                                show: function(param){
+                                show: function (param) {
                                     return !param.settings.yAxis.right.autoInterval &&
-                                            (
-                                                param.settings.yAxis.right.intervalType==1 ||
-                                                param.settings.yAxis.right.intervalType==2 
-                                            )
+                                        (
+                                            param.settings.yAxis.right.intervalType == 1 ||
+                                            param.settings.yAxis.right.intervalType == 2
+                                        )
                                 }
                             },
-                            yAxisRightInverse:{
+                            yAxisRightInverse: {
                                 ref: "settings.yAxis.right.inverse",
                                 type: "boolean",
                                 component: "switch",
@@ -986,11 +1115,25 @@ define( [], function () {
                             },
                         }
                     },
-                    Grid:{
+                    Grid: {
                         type: "items",
                         label: "Grid",
                         items: {
-                            ContainLabel:{
+                            SwitchAxies: {
+                                ref: "settings.grid.switchAxies",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Switch Axis",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "False"
+                                }],
+                                defaultValue: false
+                            },
+                            ContainLabel: {
                                 ref: "settings.grid.containLabel",
                                 type: "boolean",
                                 component: "switch",
@@ -1004,7 +1147,7 @@ define( [], function () {
                                 }],
                                 defaultValue: false
                             },
-                            CustomGrid:{
+                            CustomGrid: {
                                 ref: "settings.grid.customGridPosition",
                                 type: "boolean",
                                 component: "switch",
@@ -1018,54 +1161,54 @@ define( [], function () {
                                 }],
                                 defaultValue: false
                             },
-                            Left:{
+                            Left: {
                                 ref: "settings.grid.position.left",
                                 label: "Left",
                                 type: "string",
                                 defaultValue: '10%',
                                 expression: "optional",
-                                show: function(param) {
+                                show: function (param) {
                                     return param.settings.grid.customGridPosition;
                                 }
                             },
-                            Right:{
+                            Right: {
                                 ref: "settings.grid.position.right",
                                 label: "Right",
                                 type: "string",
                                 defaultValue: '10%',
                                 expression: "optional",
-                                show: function(param) {
+                                show: function (param) {
                                     return param.settings.grid.customGridPosition;
                                 }
                             },
-                            Top:{
+                            Top: {
                                 ref: "settings.grid.position.top",
                                 label: "Top",
                                 type: "string",
                                 defaultValue: '60',
                                 expression: "optional",
-                                show: function(param) {
+                                show: function (param) {
                                     return param.settings.grid.customGridPosition;
                                 }
                             },
-                            Bottom:{
+                            Bottom: {
                                 ref: "settings.grid.position.bottom",
                                 label: "Bottom",
                                 type: "string",
                                 defaultValue: '60',
                                 expression: "optional",
-                                show: function(param) {
+                                show: function (param) {
                                     return param.settings.grid.customGridPosition;
                                 }
                             },
-                            Width:{
+                            Width: {
                                 ref: "settings.grid.width",
                                 label: "Width",
                                 type: "string",
                                 defaultValue: 'auto',
                                 expression: "optional"
                             },
-                            Height:{
+                            Height: {
                                 ref: "settings.grid.height",
                                 label: "Height",
                                 type: "string",
@@ -1075,11 +1218,11 @@ define( [], function () {
                         }
 
                     },
-                    Others:{
+                    Others: {
                         type: "items",
                         label: "Others",
                         items: {
-                            ShowZeroBars:{
+                            ShowZeroBars: {
                                 ref: "settings.others.showZeroBars",
                                 type: "boolean",
                                 component: "switch",
@@ -1093,7 +1236,21 @@ define( [], function () {
                                 }],
                                 defaultValue: true
                             },
-                            NumberVisibleItems:{
+                            ShowDataZoom: {
+                                ref: "settings.others.showDataZoom",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Show Data Zoom",
+                                options: [{
+                                    value: true,
+                                    label: "Show"
+                                }, {
+                                    value: false,
+                                    label: "Hide"
+                                }],
+                                defaultValue: true
+                            },
+                            NumberVisibleItems: {
                                 ref: "settings.others.numberVisibleItems",
                                 label: "Number Visible Items",
                                 type: "string",

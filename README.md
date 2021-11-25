@@ -6,7 +6,7 @@
 
 A custom bar/line chart created based in [echarts library](https://echarts.apache.org/en/index.html "echarts library").
 
-See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CHANGELOG.MD "Changed Log"), updated in 2021-06-20.
+See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CHANGELOG.MD "Changed Log"), updated in 2021-11-08.
 
 - Expression Options
 - Data Label Settings
@@ -24,27 +24,27 @@ See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CH
 
 ------------
 
-- stack: Stack the measures on your on way! if two or more measures have the same stack property they are satcked.
+- stack: Stack the measures on your on way! if two or more measures have the same stack property they are satcked;
 
-- type: How the measure will be presented, in bar or line.
+- type: How the measure will be presented, in bar or line;
 
-- line type: If 'type' option is 'Line' you can choose between 'Solid','Dashed' or 'Dotted' line types.
+- line type: If 'type' option is 'Line' you can choose between 'Solid','Dashed' or 'Dotted' line types;
 
-- line width: If 'type' option is 'Line' you can define the line width.
+- line width: If 'type' option is 'Line' you can define the line width;
 
-- line symbol size: change the line simbol size
+- line symbol size: change the line simbol size;
 
-- y-axis: Defines which y-axis the measure will follow.
+- y-axis: Defines which y-axis the measure will follow;
 
-- color: Define the measure color.
+- color: Define the measure color;
 
-- label color auto: Let Echarts select the right color.
+- label color auto: Let Echarts select the right color;
 
-- label color: select label color. (label color auto option must be off) 
+- label color: select label color. (label color auto option must be off);
 
-- label border width: Change border width
+- label border width: Change border width;
 
-- label border border: Change border color
+- label border border: Change border color.
 
 
 ### Data Label Settings
@@ -178,8 +178,9 @@ See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CH
 ------------
 ![](https://i.imgur.com/X32MBv4.png)
 ![](https://i.imgur.com/FNvoj4D.png)
+![](https://i.imgur.com/iLLN8VO.png)
 ![](https://i.imgur.com/2x4x4nc.png)
 ![](https://i.imgur.com/U5t0ou2.png)
 ![](https://i.imgur.com/zgBTdmw.png)
-![](https://i.imgur.com/zXC3fkG.png)
+![](https://i.imgur.com/TP99m1c.png)
 ![](https://i.imgur.com/KhJFj3D.png)
