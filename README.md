@@ -155,6 +155,7 @@ See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CH
 ### Grid Options
 
 ------------
+- Switch Axis: Switch X and Y axis making the graph horizontal.
 
 - Contain Label: Change the grid size based on label. ( see more [here](https://echarts.apache.org/en/option.html#grid.containLabel) )
 
