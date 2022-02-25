@@ -5,8 +5,13 @@ define([
     'qlik'
 ],
     function ($, echarts, props, qlik) {
+        //Number of initial rows used in qInitialDataFetch prop
+        const initialRows = 625;
+
 
         function getDimensionArray(layout) {
+            
+            console.log('--> ',layout.qHyperCube.qDataPages[0].qMatrix.length)
 
             return layout.qHyperCube.qDataPages[0].qMatrix.map((item) => {
                 return item[0].qText;
@@ -242,7 +247,8 @@ define([
                 barGap: settings.barOptions.barGap,
                 type: measureInfo.type,
                 stack: measureInfo.stack,
-                name: measureInfo.qFallbackTitle
+                name: measureInfo.qFallbackTitle,
+                largeThreshold: 7000 
             };
             
             
@@ -545,7 +551,7 @@ define([
                 data: getDimensionArray(layout),
                 axisLabel: getAxisLabel(layout)
             }
-
+            
 
             return xAxis;
 
@@ -595,6 +601,47 @@ define([
 
         }
 
+        //Get all date from the cube
+        async function getWholeHyperCube(layout, self){
+            
+            const totalRows = layout.qHyperCube.qSize.qcy;
+            const totalColuns = layout.qHyperCube.qSize.qcx;
+
+            //check if the initial dataset already is full
+            if(initialRows/totalColuns >=totalRows){
+                return layout;
+
+            }
+
+            async function fetchPage(arrayLen) {
+
+				var requestPage = [{
+					qTop: arrayLen,
+					qLeft: 0,
+					qWidth: totalColuns,
+					qHeight: Math.min(initialRows, totalRows - arrayLen)
+				}];
+
+				const aux = await self.backendApi.getData(requestPage)
+				
+				return aux[0].qMatrix;
+
+			}
+
+            let tempArray = [...layout.qHyperCube.qDataPages[0].qMatrix];
+			const maxRowsNumber = totalRows;
+
+			while (tempArray.length < maxRowsNumber) {
+				tempArray = tempArray.concat(await fetchPage(tempArray.length));
+			}
+
+            layout.qHyperCube.qDataPages[0].qMatrix=[...tempArray];
+
+			return layout;
+
+
+        }
+
         return {
 
             initialProperties: {
@@ -603,27 +650,36 @@ define([
                     qMeasures: [],
                     qInitialDataFetch: [{
                         qWidth: 16,
-                        qHeight: 625
+                        qHeight: initialRows
                     }]
                 }
             },
             definition: props,
             support: { snapshot: true, export: true, exportData: true },
-            paint: function ($element, layout) {
+            paint: async function ($element, layout) {
 
                 echarts.dispose($element[0]);
 
-                var dimensionName = getDimensionName(layout);
-                var serieArray = getSerieArray(layout);
-                var expressionColorArray = getExpressionColorArray(layout)
-                var legend = getLegend(layout);
-                var dataZoomArray = getDataZoom(layout);
-                var grid = getGrid(layout);
-                var xAxis = getXAxis(layout);
-                var yAxis = getYAxis(layout);
+                try {
+                    
+                    layout= await getWholeHyperCube(layout,this);
+
+   				} catch (errorMsg) {
+					console.log(errorMsg)
+				}
+
+
+                var dimensionName           =   getDimensionName(layout);
+                var serieArray              =   getSerieArray(layout);
+                var expressionColorArray    =   getExpressionColorArray(layout)
+                var legend                  =   getLegend(layout);
+                var dataZoomArray           =   getDataZoom(layout);
+                var grid                    =   getGrid(layout);
+                var xAxis                   =   getXAxis(layout);
+                var yAxis                   =   getYAxis(layout);
 
                 //Switch Axies
-                //Is needed change dataZoom properts to
+                //Is needed change dataZoom prop too
                 if (layout.settings.grid.switchAxies) {
                     xAxis = getYAxis(layout);
                     yAxis = getXAxis(layout);
@@ -647,6 +703,7 @@ define([
                     qlik.currApp(this).field(dimensionName).selectValues([params.name], true, true)
 
                 });
+
 
 
                 var defer = qlik.Promise.defer();
