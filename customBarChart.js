@@ -11,8 +11,6 @@ define([
 
         function getDimensionArray(layout) {
             
-            console.log('--> ',layout.qHyperCube.qDataPages[0].qMatrix.length)
-
             return layout.qHyperCube.qDataPages[0].qMatrix.map((item) => {
                 return item[0].qText;
             });
@@ -77,7 +75,7 @@ define([
             var labelSettings = {
                 show: settings.dataLabel.visibility,
                 align: settings.dataLabel.align,
-                fontSize: settings.dataLabel.size,
+                fontSize: parseInt(settings.dataLabel.size),
                 fontWeight: settings.dataLabel.weight,
                 fontStyle: settings.dataLabel.style,
                 position: settings.dataLabel.position,
@@ -124,7 +122,7 @@ define([
 
                 labelSettings.show = measureInfo.globalSettings.dataLabel.visibility;
                 labelSettings.align = measureInfo.globalSettings.dataLabel.align;
-                labelSettings.fontSize = measureInfo.globalSettings.dataLabel.size;
+                labelSettings.fontSize = parseInt(measureInfo.globalSettings.dataLabel.size);
                 labelSettings.position = measureInfo.globalSettings.dataLabel.position;
                 labelSettings.distance = parseInt(measureInfo.globalSettings.dataLabel.distance);
                 labelSettings.rotate = measureInfo.globalSettings.dataLabel.rotate;
@@ -142,7 +140,7 @@ define([
             var labelSettings = {
                 show: axisLabelLayout.visibility,
                 align: axisLabelLayout.align,
-                fontSize: axisLabelLayout.size,
+                fontSize: parseInt(axisLabelLayout.size),
                 fontWeight: axisLabelLayout.weight,
                 fontStyle: axisLabelLayout.style,
                 rotate: axisLabelLayout.rotate
@@ -191,7 +189,7 @@ define([
                 show: true,
                 length2: 5,
                 lineStyle: {
-                    width: labelLineLayout.width,
+                    width: parseInt(labelLineLayout.width),
                     opacity: labelLineLayout.opacity,
                     type: labelLineLayout.type
                 }
@@ -262,7 +260,7 @@ define([
 
                 commumProperty.symbolSize = parseInt(measureInfo.line.symbolSize),
                     commumProperty.lineStyle = {
-                        width: measureInfo.line.width,
+                        width: parseInt(measureInfo.line.width),
                         type: measureInfo.line.type,
                     }
             }
