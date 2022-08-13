@@ -148,6 +148,14 @@ See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CH
 
 - visibility: Show/Hide the axis.
 
+- Label Formatter Auto: Show/Hide formatter options.
+
+- Label Formatter Style: Style of the number.(Currency,percent and decimal)
+
+- Label Formatter Currency Symbol: Currency symbol. (in  ISO 4217 partner,see more [here](https://www.six-group.com/en/products-services/financial-information/data-standards.html#scrollTo=isin) )
+
+- Label Formatter Currency Locales: Currency locales format. (in BCP 47 partner, see more [here](https://www.techonthenet.com/js/language_tags.php))
+
 - Interval: Choose between custom and auto axis interval. You can set custom Max and Min values.
 
 - Inverse: Invert the axis.

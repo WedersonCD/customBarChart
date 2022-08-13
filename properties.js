@@ -961,6 +961,106 @@ define([], function () {
                                 }],
                                 defaultValue: false
                             },
+                            yAxisLeftLabelFormatterAuto: {
+                                label: "Label Formatter Auto",
+                                ref: "settings.yAxis.left.label.on",
+                                type: "boolean",
+                                component: "switch",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "Off"
+                                }],
+                                defaultValue: true,
+                                show: function(param){
+                                    return param.settings.yAxis.left.show
+                                }
+                            },
+                            yAxisLeftLabelMinFractionDigits: {
+                                label: "Label Formatter Min Fraction Digits",
+                                type: "string",
+                                ref: "settings.yAxis.left.label.minFractDigits",
+                                expression: "optional",
+                                defaultValue: '0',
+                                show: function (param) {
+                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on;
+                                }
+                            },
+                            yAxisLeftLabelInputType: {
+                                ref: "settings.yAxis.left.label.inputType",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: 0,
+                                options: [{ value: 0, label: "Single" }, { value: 1, label: "Expression"}],
+                                show: function (param) {
+                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on;
+                                }
+                            },
+                            yAxisLeftLabelStyle: {
+                                label: "Label Formatter Style",
+                                ref: "settings.yAxis.left.label.style",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: "decimal",
+                                options: [{ value: "decimal", label: "decimal" }, { value: "currency", label: "currency"},{ value: "percent", label: "percent"}],
+                                show: function (param) {
+                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && param.settings.yAxis.left.label.inputType==0;
+                                }
+                            },
+                            yAxisLeftLabelStyleByExpression: {
+                                label: "Label Formatter Style",
+                                type: "string",
+                                ref: "settings.yAxis.left.label.style",
+                                expression: "optional",
+                                defaultValue: 'decimal',
+                                show: function (param) {
+                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && param.settings.yAxis.left.label.inputType==1;
+                                }
+                            },
+                            yAxisLeftLabelCurrencySymbol: {
+                                label: "Label Formatter Currency Symbol",
+                                ref: "settings.yAxis.left.label.currencySymbol",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: "USD",
+                                options: [{ value: "BRL", label: "BRL" }, { value: "USD", label: "USD"},{ value: "EUR", label: "EUR"},{value:"INR", label: "INR"}],
+                                show: function (param) {
+                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && settings.yAxis.left.label.style=="currency" && param.settings.yAxis.left.label.inputType==0;
+                                }
+                            },
+                            yAxisLeftLabelCurrencySymbolByExpression: {
+                                label: "Label Formatter Currency Symbol",
+                                type: "string",
+                                ref: "settings.yAxis.left.label.currencySymbol",
+                                expression: "optional",
+                                defaultValue: 'USD',
+                                show: function (param) {
+                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && settings.yAxis.left.label.style=="currency" && param.settings.yAxis.left.label.inputType==1;
+                                }
+                            },
+                            yAxisLeftLabelLocales: {
+                                label: "Label Formatter Currency Locales",
+                                ref: "settings.yAxis.left.label.locales",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: "en-US",
+                                options: [{ value: "pt-BR", label: "pt-BR" }, { value: "en-US", label: "en-US"},{ value: "de-DE", label: "de-DE"}],
+                                show: function (param) {
+                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && param.settings.yAxis.left.label.inputType==0;
+                                }
+                            },
+                            yAxisLeftLabelLocalesByExpression: {
+                                label: "Label Formatter Currency Locales",
+                                type: "string",
+                                ref: "settings.yAxis.left.label.locales",
+                                expression: "optional",
+                                defaultValue: 'en-US',
+                                show: function (param) {
+                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && param.settings.yAxis.left.label.inputType==1;
+                                }
+                            },
                             yAxisLeftAutoValues: {
                                 ref: "settings.yAxis.left.autoInterval",
                                 type: "boolean",
@@ -1026,7 +1126,7 @@ define([], function () {
                                     label: "Off"
                                 }],
                                 defaultValue: false
-                            },
+                            }
                         }
                     },
                     yAxisRight: {
@@ -1046,6 +1146,106 @@ define([], function () {
                                     label: "Hide"
                                 }],
                                 defaultValue: false
+                            },
+                            yAxisRightLabelFormatterAuto: {
+                                label: "Label Formatter Auto",
+                                ref: "settings.yAxis.right.label.on",
+                                type: "boolean",
+                                component: "switch",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "Off"
+                                }],
+                                defaultValue: true,
+                                show: function(param){
+                                    return param.settings.yAxis.right.show
+                                }
+                            },
+                            yAxisRightLabelMinFractionDigits: {
+                                label: "Label Formatter Min Fraction Digits",
+                                type: "string",
+                                ref: "settings.yAxis.right.label.minFractDigits",
+                                expression: "optional",
+                                defaultValue: '0',
+                                show: function (param) {
+                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on;
+                                }
+                            },
+                            yAxisRightLabelInputType: {
+                                ref: "settings.yAxis.right.label.inputType",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: 0,
+                                options: [{ value: 0, label: "Single" }, { value: 1, label: "Expression"}],
+                                show: function (param) {
+                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on;
+                                }
+                            },
+                            yAxisRightLabelStyle: {
+                                label: "Label Formatter Style",
+                                ref: "settings.yAxis.right.label.style",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: "decimal",
+                                options: [{ value: "decimal", label: "decimal" }, { value: "currency", label: "currency"},{ value: "percent", label: "percent"}],
+                                show: function (param) {
+                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && param.settings.yAxis.right.label.inputType==0;
+                                }
+                            },
+                            yAxisRightLabelStyleByExpression: {
+                                label: "Label Formatter Style",
+                                type: "string",
+                                ref: "settings.yAxis.right.label.style",
+                                expression: "optional",
+                                defaultValue: 'decimal',
+                                show: function (param) {
+                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && param.settings.yAxis.right.label.inputType==1;
+                                }
+                            },
+                            yAxisRightLabelCurrencySymbol: {
+                                label: "Label Formatter Currency Symbol",
+                                ref: "settings.yAxis.right.label.currencySymbol",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: "USD",
+                                options: [{ value: "BRL", label: "BRL" }, { value: "USD", label: "USD"},{ value: "EUR", label: "EUR"},{value:"INR", label: "INR"}],
+                                show: function (param) {
+                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && settings.yAxis.right.label.style=="currency" && param.settings.yAxis.right.label.inputType==0;
+                                }
+                            },
+                            yAxisRightLabelCurrencySymbolByExpression: {
+                                label: "Label Formatter Currency Symbol",
+                                type: "string",
+                                ref: "settings.yAxis.right.label.currencySymbol",
+                                expression: "optional",
+                                defaultValue: 'USD',
+                                show: function (param) {
+                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && settings.yAxis.right.label.style=="currency" && param.settings.yAxis.right.label.inputType==1;
+                                }
+                            },
+                            yAxisRightLabelLocales: {
+                                label: "Label Formatter Currency Locales",
+                                ref: "settings.yAxis.right.label.locales",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: "en-US",
+                                options: [{ value: "pt-BR", label: "pt-BR" }, { value: "en-US", label: "en-US"},{ value: "de-DE", label: "de-DE"}],
+                                show: function (param) {
+                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && param.settings.yAxis.right.label.inputType==0;
+                                }
+                            },
+                            yAxisRightLabelLocalesByExpression: {
+                                label: "Label Formatter Currency Locales",
+                                type: "string",
+                                ref: "settings.yAxis.right.label.locales",
+                                expression: "optional",
+                                defaultValue: 'en-US',
+                                show: function (param) {
+                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && param.settings.yAxis.right.label.inputType==1;
+                                }
                             },
                             yAxisRightAutoValues: {
                                 ref: "settings.yAxis.right.autoInterval",
