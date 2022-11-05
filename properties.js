@@ -81,14 +81,11 @@ define([], function () {
                         }
                     },
                     LabelRotate: {
-                        type: "number",
-                        component: "slider",
-                        label: "Data Label Rotate",
                         ref: "qDef.globalSettings.dataLabel.rotate",
-                        min: -90,
-                        max: 90,
-                        step: 1,
-                        defaultValue: 0,
+                        label: "Data Label Rotate",
+                        type: "string",
+                        defaultValue: '0',
+                        expression: "optional",
                         show: function (param) {
                             return param.qDef.globalSettings && !param.qDef.globalSettings.use
                         }
@@ -113,6 +110,56 @@ define([], function () {
                             { value: "left", label: "left" },
                             { value: "right", label: "right" },
                             { value: "top", label: "top" }
+                        ],
+                        show: function (param) {
+                            return param.qDef.globalSettings && !param.qDef.globalSettings.use
+                        }
+                    },
+                    LabelFontWeight: {
+                        ref: "qDef.globalSettings.dataLabel.weight",
+                        label: "Weight",
+                        type: "string",
+                        component: "dropdown",
+                        defaultValue: 'normal',
+                        options: [
+                            { value: "normal", label: "normal" },
+                            { value: "bold", label: "bold" },
+                            { value: "bolder", label: "bolder" },
+                            { value: "lighter", label: "lighter" },
+                            { value: "custom", label: "custom"}
+
+                        ],
+                        show: function (param){
+                            return param.qDef.globalSettings && !param.qDef.globalSettings.use
+                        }
+                    },
+                    LabelFontWeightCustom: {
+                        ref: "qDef.globalSettings.dataLabel.weightCustom",
+                        label: "Weight Custom",
+                        type: "string",
+                        defaultValue: '300',
+                        expression: "optional",
+                        show: function (param) {
+                            return param.qDef.globalSettings && !param.qDef.globalSettings.use && param.qDef.globalSettings.dataLabel.weight==="custom"
+                        }
+                    },
+                    LabelFontFamily: {
+                        ref: "qDef.globalSettings.dataLabel.family",
+                        label: "Font Family",
+                        type: "string",
+                        component: "dropdown",
+                        defaultValue: 'sans-serif',
+                        options: [
+                            {value: "Arial", label: "Arial"},
+                            {value: "Verdana", label: "Verdana"},
+                            {value: "Tahoma", label: "Tahoma"},
+                            {value: "Trebuchet MS", label: "Trebuchet MS"},
+                            {value: "Times New Roman", label: "Times New Roman"},
+                            {value: "Georgia", label: "Georgia"},
+                            {value: "Garamond", label: "Garamond"},
+                            {value: "Courier New", label: "Courier New"},
+                            {value: "Brush Script MT", label: "Brush Script MT"},
+                            {value: "sans-serif", label: "sans-serif"}
                         ],
                         show: function (param) {
                             return param.qDef.globalSettings && !param.qDef.globalSettings.use
@@ -330,14 +377,11 @@ define([], function () {
                                 expression: "optional"
                             },
                             LabelRotate: {
-                                type: "number",
-                                component: "slider",
-                                label: "Rotate",
                                 ref: "settings.dataLabel.rotate",
-                                min: -90,
-                                max: 90,
-                                step: 1,
-                                defaultValue: 0
+                                label: "Rotate",
+                                type: "string",
+                                defaultValue: '0',
+                                expression: "optional"
                             },
                             LabelPosition: {
                                 ref: "settings.dataLabel.position",
@@ -383,9 +427,20 @@ define([], function () {
                                     { value: "normal", label: "normal" },
                                     { value: "bold", label: "bold" },
                                     { value: "bolder", label: "bolder" },
-                                    { value: "lighter", label: "lighter" }
+                                    { value: "lighter", label: "lighter" },
+                                    { value: "custom", label: "custom"}
 
                                 ]
+                            },
+                            LabelFontWeightCustom: {
+                                ref: "settings.dataLabel.weightCustom",
+                                label: "Weight Custom",
+                                type: "string",
+                                defaultValue: '300',
+                                expression: "optional",
+                                show: function (param) {
+                                    return param.settings.dataLabel.weight==="custom"
+                                }
                             },
                             LabelFontSize: {
                                 ref: "settings.dataLabel.size",
@@ -393,6 +448,25 @@ define([], function () {
                                 type: "string",
                                 defaultValue: '15',
                                 expression: "optional"
+                            },
+                            LabelFontFamily: {
+                                ref: "settings.dataLabel.family",
+                                label: "Font Family",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: 'sans-serif',
+                                options: [
+                                    {value: "Arial", label: "Arial"},
+                                    {value: "Verdana", label: "Verdana"},
+                                    {value: "Tahoma", label: "Tahoma"},
+                                    {value: "Trebuchet MS", label: "Trebuchet MS"},
+                                    {value: "Times New Roman", label: "Times New Roman"},
+                                    {value: "Georgia", label: "Georgia"},
+                                    {value: "Garamond", label: "Garamond"},
+                                    {value: "Courier New", label: "Courier New"},
+                                    {value: "Brush Script MT", label: "Brush Script MT"},
+                                    {value: "sans-serif", label: "sans-serif"}
+                                ]
                             },
                             LabelFontAlign: {
                                 ref: "settings.dataLabel.align",

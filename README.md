@@ -6,7 +6,7 @@
 
 A custom bar/line chart created based in [echarts library](https://echarts.apache.org/en/index.html "echarts library").
 
-See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CHANGELOG.MD "Changed Log"), updated in 2022-08-13.
+See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CHANGELOG.MD "Changed Log"), updated in 2022-11-04.
 
 - Expression Options
 - Data Label Settings
@@ -37,6 +37,8 @@ See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CH
 - y-axis: Defines which y-axis the measure will follow;
 
 - color: Define the measure color;
+
+- label Weight: font thick weight.
 
 - label color auto: Let Echarts select the right color;
 

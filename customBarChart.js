@@ -76,7 +76,6 @@
                     show: settings.dataLabel.visibility,
                     align: settings.dataLabel.align,
                     fontSize: parseInt(settings.dataLabel.size),
-                    fontWeight: settings.dataLabel.weight,
                     fontStyle: settings.dataLabel.style,
                     position: settings.dataLabel.position,
                     distance: parseInt(settings.dataLabel.distance),
@@ -117,6 +116,17 @@
 
                 }
 
+                if (settings.dataLabel.family) {
+                    labelSettings.fontFamily=settings.dataLabel.family
+                }
+
+                if (settings.dataLabel.weight==='custom') {
+                    labelSettings.fontWeight= parseInt(settings.dataLabel.weightCustom)
+                }else{
+                    labelSettings.fontWeight= settings.dataLabel.weight
+                }
+
+
                 //Overwrite global settings
                 if (measureInfo.globalSettings && !measureInfo.globalSettings.use) {
 
@@ -126,6 +136,16 @@
                     labelSettings.position = measureInfo.globalSettings.dataLabel.position;
                     labelSettings.distance = parseInt(measureInfo.globalSettings.dataLabel.distance);
                     labelSettings.rotate = measureInfo.globalSettings.dataLabel.rotate;
+
+                    if (measureInfo.globalSettings.dataLabel.weight && measureInfo.globalSettings.dataLabel.weight==='custom') {
+                        labelSettings.fontWeight= parseInt(measureInfo.globalSettings.dataLabel.weightCustom)
+                    }else if(measureInfo.globalSettings.dataLabel.weight){
+                        labelSettings.fontWeight= measureInfo.globalSettings.dataLabel.weight
+                    }
+
+                    if (measureInfo.globalSettings.dataLabel.family) {
+                        labelSettings.fontFamily=measureInfo.globalSettings.dataLabel.family
+                    }
 
                 }
 

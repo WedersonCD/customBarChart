@@ -6,7 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [2.13.0] - 2022-11-04
 
+### Addded
+
+- Now you can pick custom font bold;
+- Now you can pick font bold for individual measures;
+- Now you can change font family of data label
+
+### Changed
+
+- e-charts version updated to 5.4.0;
+- Data label rotation changed from slider to expression box
 
 ## [2.12.0] - 2022-08-13
 
