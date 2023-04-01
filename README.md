@@ -6,7 +6,7 @@
 
 A custom bar/line chart created based in [echarts library](https://echarts.apache.org/en/index.html "echarts library").
 
-See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CHANGELOG.MD "Changed Log"), updated in 2022-11-04.
+See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CHANGELOG.MD "Changed Log"), updated in 2023-04-01.
 
 - Expression Options
 - Data Label Settings
@@ -16,6 +16,7 @@ See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CH
 - Bar Options
 - yAxis
 - Grid Settings
+- Tooltip Settings
 - Others Settings
 - Samples
 
@@ -175,6 +176,21 @@ See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CH
 
 - width\height: Define the Height and width of the chart, can be absolute values, percentage values or 'auto' to let eCharts define the values.
 
+### Tooltip Settings
+
+------------
+
+- Show: On/Off Tooltip
+
+- Always Show: Whether to show tooltip content all the time. 
+
+- Group By Stack: Group measures by value on stack property in individual measures.
+
+- Transition Duration: Speed of tool tip.
+
+- Use Custom Formatter: You can write a javascript function to draw the tooltip. ( see more [here](https://echarts.apache.org/en/option.html#tooltip.formatter) )
+
+
 
 ### Others Settings
 
@@ -191,7 +207,7 @@ See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CH
 ![](https://i.imgur.com/FNvoj4D.png)
 ![](https://i.imgur.com/iLLN8VO.png)
 ![](https://i.imgur.com/2x4x4nc.png)
-![](https://i.imgur.com/U5t0ou2.png)
+![](https://i.imgur.com/iQHXxPH.png)
 ![](https://i.imgur.com/zgBTdmw.png)
 ![](https://i.imgur.com/TP99m1c.png)
 ![](https://i.imgur.com/KhJFj3D.png)

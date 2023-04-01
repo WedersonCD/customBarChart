@@ -14,6 +14,20 @@ define([], function () {
                 uses: "measures",
                 min: 1,
                 items: {
+                    ShowInToolTip: {
+                        ref: "qDef.showInToolTip",
+                        type: "boolean",
+                        component: "switch",
+                        label: "Show in Tooltip",
+                        options: [{
+                            value: true,
+                            label: "Show"
+                        }, {
+                            value: false,
+                            label: "hide"
+                        }],
+                        defaultValue: true
+                    },
                     CustomDataLabelUse: {
                         ref: "qDef.customDataLabel.use",
                         type: "boolean",
@@ -38,6 +52,7 @@ define([], function () {
                             return param.qDef.customDataLabel && param.qDef.customDataLabel.use;
                         }
                     },
+
                     GlobalSettingsUse: {
                         ref: "qDef.globalSettings.use",
                         type: "boolean",
@@ -1491,6 +1506,198 @@ define([], function () {
                             },
                         }
 
+                    },
+                    Tooltip:{
+                        type: 'items',
+                        label: 'Tooltip',
+                        items: {
+                            TooltipsShow: {
+                                ref: "settings.tooltip.show",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Show",
+                                options: [{
+                                    value: true,
+                                    label: "Show"
+                                }, {
+                                    value: false,
+                                    label: "Hide"
+                                }],
+                                defaultValue: false
+                            },
+                            TooltipsAlwaysShow: {
+                                ref: "settings.tooltip.alwaysShow",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Always Show",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "Off"
+                                }],
+                                defaultValue: false
+                            },
+                            TooltipsSortByStack: {
+                                ref: "settings.tooltip.customFormatter.sortByStack",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Group By Stack",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "Off"
+                                }],
+                                defaultValue: false
+                            },
+                            TooltipsTransitionDuration: {
+                                ref: "settings.tooltip.transitionDuration",
+                                label: "Transition Duration",
+                                type: "string",
+                                defaultValue: '0.4',
+                                expression: "optional"
+                            },
+                            TooltipsBackgroundColor: {
+                                ref: "settings.tooltip.backgroundColor",
+                                label: "Background Color",
+                                type: "string",
+                                defaultValue: 'rgba(255,255,255,0.7)',
+                                expression: "optional"
+                            },
+                            TooltipsBorderWidth: {
+                                ref: "settings.tooltip.borderWidth",
+                                label: "Border Width",
+                                type: "string",
+                                defaultValue: '1',
+                                expression: "optional"
+                            },
+                            TooltipsBorderColor: {
+                                ref: "settings.tooltip.borderColor",
+                                label: "Border Color",
+                                type: "string",
+                                defaultValue: '#333',
+                                expression: "optional"
+                            },
+                            TooltipMinWidth: {
+                                type: "string",
+                                ref: "settings.tooltip.minWidth",
+                                label: "Min Width",
+                                expression: "optional",
+                                defaultValue: '150px',
+                            },
+                            TooltipTextSize: {
+                                type: "string",
+                                ref: "settings.tooltip.text.size",
+                                label: "Text Size",
+                                expression: "optional",
+                                defaultValue: '12',
+                            },
+                            TooltipColorType: {
+                                ref: "settings.tooltip.colorType",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: 0,
+                                options: [{ value: 0, label: "Single Color" }, { value: 1, label: "By Expression" }]
+                            },
+                            TooltipSingleColor: {
+                                ref: "settings.tooltip.text.color",
+                                component: "color-picker",
+                                label: "Text Color",
+                                type: "object",
+                                defaultValue: {
+                                    color: "#000",
+                                    index: "-1"
+                                },
+                                show: function (param) {
+                                    return param.settings.tooltip.colorType == 0;
+                                }
+                            },
+                            TooltipColorByExpression: {
+                                type: "string",
+                                ref: "settings.tooltip.text.colorExpression",
+                                label: "Text Color",
+                                expression: "optional",
+                                defaultValue: '',
+                                show: function (param) {
+                                    return param.settings.tooltip.colorType == 1;
+                                }
+                            },
+                            TooltipBorderWidth: {
+                                type: "string",
+                                ref: "settings.tooltip.text.border.width",
+                                label: "Text Border Width",
+                                defaultValue: '0',
+                                expression: "optional"
+                            },
+                            TooltipBorderColor: {
+                                ref: "settings.tooltip.text.border.color",
+                                component: "color-picker",
+                                label: "Text Border Color",
+                                type: "object",
+                                defaultValue: {
+                                    color: "#fff",
+                                    index: "-1"
+                                },
+                                show: function (param) {
+                                    return param.settings.tooltip.colorType == 0;
+                                }
+                            },
+                            TooltipBorderColorByExpression: {
+                                type: "string",
+                                ref: "settings.tooltip.text.border.colorByExpression",
+                                label: "Text Border Color",
+                                defaultValue: '#fff',
+                                expression: "optional",
+                                show: function (param) {
+                                    return param.settings.tooltip.colorType == 1;
+                                }
+                            },
+                            TooltipUseCustomFormatter: {
+                                ref: "settings.tooltip.customFormatter.use",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Use Custom FOrmatter Function",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "Off"
+                                }],
+                                defaultValue: false
+                            },
+                            TooltipUseCustomFormatterText: {
+                                label: "Custom Formatter Function, see Echart toolip formatter documentation for more information. https://echarts.apache.org/en/option.html#tooltip.valueFormatter ",
+                                component: "text",
+                                show: function (param) {
+                                    return param.settings.tooltip.customFormatter.use
+                                }
+                            },
+                            ToolTipFormatterFunction: {
+                                component: "textarea",
+                                rows: 7,
+                                maxlength: 10000,
+                                ref: "settings.tooltip.customFormatter.function",
+                                label: "Formatter Function ",
+                                show: function (param) {
+                                    return param.settings.tooltip.customFormatter.use
+                                },
+                                defaultValue: `tooltip = params[0].axisValue
+                                params.forEach((variavel) => {
+                                    if(variavel.data.showInToolTip){
+                                        tooltip = tooltip + '<div style="min-width:'+tooltipSettings.minWidth+';display: flex;justify-content: space-between;">'
+                                        tooltip = tooltip + '<span>' + variavel.marker + variavel.seriesName + ':</span>' + variavel.data.valueText
+                                        tooltip = tooltip + '</div>'
+                                    }
+                
+                                })
+                
+                                return tooltip;`
+                            },
+                        }
                     },
                     Others: {
                         type: "items",
