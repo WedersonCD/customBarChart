@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Addded
 
-- Add line step option
+- Add line step option (Thanks to HG14 for this feature)
 
 
 ## [2.14.0] - 2023-04-01
