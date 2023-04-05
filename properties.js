@@ -251,6 +251,17 @@ define([], function () {
                             return param.qDef.type == "line";
                         }
                     },
+                    LineStep: {
+                        ref: "qDef.line.step",
+                        label: "Line Step",
+                        type: "string",
+                        component: "dropdown",
+                        defaultValue: '',
+                        options: [{ value: "", label: "" }, { value: "start", label: "start" }, { value: "middle", label: "middle" }, { value: "end", label: "end" }],
+                        show: function (param) {
+                            return param.qDef.type == "line";
+                        }
+                    },
                     Yindex: {
                         ref: "qDef.yIndex",
                         label: "y-axis",

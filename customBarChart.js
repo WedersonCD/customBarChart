@@ -217,6 +217,7 @@ define([
                 }
             }
 
+
             //Define line color
 
             //Single Color
@@ -280,11 +281,14 @@ define([
 
             if (measureInfo.line && measureInfo.type == 'line') {
 
-                commumProperty.symbolSize = parseInt(measureInfo.line.symbolSize),
-                    commumProperty.lineStyle = {
+                commumProperty.symbolSize = parseInt(measureInfo.line.symbolSize)
+                commumProperty.lineStyle = {
                         width: parseInt(measureInfo.line.width),
                         type: measureInfo.line.type,
-                    }
+                }
+
+                if(measureInfo.line.step)
+                    commumProperty.step=measureInfo.line.step;
             }
 
             if (settings.dataLabel.drag && settings.dataLabel.drag.isDraggable) {
@@ -687,7 +691,7 @@ define([
             if (tooltipSettings.customFormatter.sortByStack) {
 
                 return function (params) {
-                    tooltip = params[0].axisValue+'<br><br>'
+                    tooltip = params[0].axisValue + '<br><br>'
                     measureArray = {}
 
                     params.forEach((variavel) => {
@@ -705,12 +709,12 @@ define([
                         }
                     })
 
-                    for(stack in measureArray){
-                        tooltip=tooltip+stack+'<br>'
-                        measureArray[stack].forEach((measures)=>{
-                            tooltip=tooltip+measures
+                    for (stack in measureArray) {
+                        tooltip = tooltip + stack + '<br>'
+                        measureArray[stack].forEach((measures) => {
+                            tooltip = tooltip + measures
                         })
-                        tooltip=tooltip+'<br>'
+                        tooltip = tooltip + '<br>'
                     }
 
                     return tooltip

@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Addded
 
+- Add line step option
+
+
+## [2.14.0] - 2023-04-01
+
+### Addded
+
 - Add Tooltip Section
 - Add option to show/hide individual expression in tooltip
 
