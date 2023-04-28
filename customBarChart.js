@@ -283,12 +283,12 @@ define([
 
                 commumProperty.symbolSize = parseInt(measureInfo.line.symbolSize)
                 commumProperty.lineStyle = {
-                        width: parseInt(measureInfo.line.width),
-                        type: measureInfo.line.type,
+                    width: parseInt(measureInfo.line.width),
+                    type: measureInfo.line.type,
                 }
 
-                if(measureInfo.line.step)
-                    commumProperty.step=measureInfo.line.step;
+                if (measureInfo.line.step)
+                    commumProperty.step = measureInfo.line.step;
             }
 
             if (settings.dataLabel.drag && settings.dataLabel.drag.isDraggable) {
@@ -529,21 +529,28 @@ define([
         }
 
         function geLegendData(layout) {
+
             var legendDataArray = [];
             var expressionNumber = layout.qHyperCube.qMeasureInfo.length;
 
             for (var x = 0; x < expressionNumber; x++) {
 
-                measureInfo = layout.qHyperCube.qMeasureInfo[x];
-                icon = getLegendIcon(layout.settings.legend, measureInfo.type)
-                dataItem = {
-                    name: measureInfo.qFallbackTitle,
-                    icon: icon
+                if (typeof (layout.qHyperCube.qMeasureInfo[x].showInLegend) === 'undefined' || layout.qHyperCube.qMeasureInfo[x].showInLegend) {
+
+                    measureInfo = layout.qHyperCube.qMeasureInfo[x];
+
+                    icon = getLegendIcon(layout.settings.legend, measureInfo.type)
+                    dataItem = {
+                        name: measureInfo.qFallbackTitle,
+                        icon: icon
+                    }
+
+                    legendDataArray.push(dataItem)
                 }
 
-                legendDataArray[x] = dataItem
 
             }
+
             return legendDataArray;
         }
 
@@ -835,6 +842,8 @@ define([
                     tooltip: toolTip,
                     series: serieArray
                 };
+
+                console.log(option)
 
                 myChart.setOption(option);
 

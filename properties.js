@@ -28,6 +28,20 @@ define([], function () {
                         }],
                         defaultValue: true
                     },
+                    ShowInLegend: {
+                        ref: "qDef.showInLegend",
+                        type: "boolean",
+                        component: "switch",
+                        label: "Show in Legend",
+                        options: [{
+                            value: true,
+                            label: "Show"
+                        }, {
+                            value: false,
+                            label: "hide"
+                        }],
+                        defaultValue: true
+                    },
                     CustomDataLabelUse: {
                         ref: "qDef.customDataLabel.use",
                         type: "boolean",
