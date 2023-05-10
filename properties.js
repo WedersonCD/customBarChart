@@ -255,6 +255,27 @@ define([], function () {
                             return param.qDef.type == "line";
                         }
                     },
+                    LineSymbolType: {
+                        ref: "qDef.line.symbolType",
+                        label: "Line Symbol Type",
+                        type: "string",
+                        component: "dropdown",
+                        defaultValue: 'emptyCircle',
+                        options: [
+                            { value: "emptyCircle", label: "emptyCircle" },
+                            { value: "circle", label: "circle" },
+                            { value: "rect", label: "rect" },
+                            { value: "roundRect", label: "roundRect" },
+                            { value: "triangle", label: "triangle" },
+                            { value: "diamond", label: "diamond" },
+                            { value: "pin", label: "pin" },
+                            { value: "arrow", label: "arrow" },
+                            { value: "none", label: "none" }
+                        ],
+                        show: function (param) {
+                            return param.qDef.type == "line";
+                        }
+                    },
                     LineSymbolSize: {
                         ref: "qDef.line.symbolSize",
                         label: "Line Symbol Size",

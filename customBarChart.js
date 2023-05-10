@@ -282,6 +282,7 @@ define([
             if (measureInfo.line && measureInfo.type == 'line') {
 
                 commumProperty.symbolSize = parseInt(measureInfo.line.symbolSize)
+                commumProperty.symbol = measureInfo.line.symbolType || 'emptyCircle'
                 commumProperty.lineStyle = {
                     width: parseInt(measureInfo.line.width),
                     type: measureInfo.line.type,

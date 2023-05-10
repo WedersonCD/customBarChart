@@ -3,6 +3,6 @@
  "description" : "Custom chart based in e-charts library",
  "icon" : "extension",
  "type" : "visualization",
- "version": "2.15.0",
+ "version": "2.16.0",
  "author": "Wederson Domingues"
 }
