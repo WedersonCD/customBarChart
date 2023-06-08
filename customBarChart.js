@@ -862,7 +862,6 @@ define([
                     series: serieArray
                 };
 
-                console.log(option)
 
                 myChart.setOption(option);
 
