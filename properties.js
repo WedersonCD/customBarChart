@@ -1777,6 +1777,14 @@ define([], function () {
                                 }],
                                 defaultValue: true
                             },
+                            DataZoomStartIn: {
+                                ref: "settings.others.dataZoomPosition",
+                                label: "Data Zoom Position",
+                                type: "string",
+                                component: "dropdown",
+                                defaultValue: 0,
+                                options: [{ value: 0, label: "Start" }, { value: 1, label: "End" }]
+                            },
                             NumberVisibleItems: {
                                 ref: "settings.others.numberVisibleItems",
                                 label: "Number Visible Items",
