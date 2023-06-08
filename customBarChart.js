@@ -11,9 +11,18 @@ define([
 
         function getDimensionArray(layout) {
 
+
             return layout.qHyperCube.qDataPages[0].qMatrix.map((item) => {
                 return item[0].qText;
             });
+        }
+
+        function getDimensionArrayDistinct(layout){
+
+            dimension=getDimensionArray(layout);
+
+            return [...new Set(dimension)]
+
         }
 
         function getColorType(layout, measurePosition) {
@@ -401,9 +410,10 @@ define([
         function getDataZoom(layout) {
 
             visibleItens = getNumberVisibleItems(layout);
-            qtdDimensionValues = getDimensionArray(layout).length
+            qtdDimensionValues = getDimensionArrayDistinct(layout).length
 
-            //if to keep compatibility
+
+            //if to keep compatibility  
             if (typeof (layout.settings.others.showDataZoom) === 'undefined') {
 
                 showDataZoom = qtdDimensionValues >= visibleItens
@@ -427,8 +437,16 @@ define([
             } else {
                 dataZoomProperty.id = 'dataZoomX';
                 dataZoomProperty.xAxisIndex = 0;
-                dataZoomProperty.startValue = 0;
-                dataZoomProperty.endValue = visibleItens
+
+                if(!layout.settings.others.dataZoomPosition || layout.settings.others.dataZoomPosition=='start'){
+                    dataZoomProperty.startValue = 0;
+                    dataZoomProperty.endValue = visibleItens
+                }else{
+                    dataZoomProperty.startValue = qtdDimensionValues;
+                    dataZoomProperty.endValue = qtdDimensionValues-visibleItens
+                }
+
+
             }
 
             return [
