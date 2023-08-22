@@ -1,6 +1,3 @@
-![](http://soeva.com.br/wp-content/uploads/2020/12/Logo500x111-1.png)
-
-------------
 
 ### Custom Bar Chart
 
