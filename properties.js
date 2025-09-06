@@ -155,10 +155,10 @@ define([], function () {
                             { value: "bold", label: "bold" },
                             { value: "bolder", label: "bolder" },
                             { value: "lighter", label: "lighter" },
-                            { value: "custom", label: "custom"}
+                            { value: "custom", label: "custom" }
 
                         ],
-                        show: function (param){
+                        show: function (param) {
                             return param.qDef.globalSettings && !param.qDef.globalSettings.use
                         }
                     },
@@ -169,7 +169,7 @@ define([], function () {
                         defaultValue: '300',
                         expression: "optional",
                         show: function (param) {
-                            return param.qDef.globalSettings && !param.qDef.globalSettings.use && param.qDef.globalSettings.dataLabel.weight==="custom"
+                            return param.qDef.globalSettings && !param.qDef.globalSettings.use && param.qDef.globalSettings.dataLabel.weight === "custom"
                         }
                     },
                     LabelFontFamily: {
@@ -179,16 +179,16 @@ define([], function () {
                         component: "dropdown",
                         defaultValue: 'sans-serif',
                         options: [
-                            {value: "Arial", label: "Arial"},
-                            {value: "Verdana", label: "Verdana"},
-                            {value: "Tahoma", label: "Tahoma"},
-                            {value: "Trebuchet MS", label: "Trebuchet MS"},
-                            {value: "Times New Roman", label: "Times New Roman"},
-                            {value: "Georgia", label: "Georgia"},
-                            {value: "Garamond", label: "Garamond"},
-                            {value: "Courier New", label: "Courier New"},
-                            {value: "Brush Script MT", label: "Brush Script MT"},
-                            {value: "sans-serif", label: "sans-serif"}
+                            { value: "Arial", label: "Arial" },
+                            { value: "Verdana", label: "Verdana" },
+                            { value: "Tahoma", label: "Tahoma" },
+                            { value: "Trebuchet MS", label: "Trebuchet MS" },
+                            { value: "Times New Roman", label: "Times New Roman" },
+                            { value: "Georgia", label: "Georgia" },
+                            { value: "Garamond", label: "Garamond" },
+                            { value: "Courier New", label: "Courier New" },
+                            { value: "Brush Script MT", label: "Brush Script MT" },
+                            { value: "sans-serif", label: "sans-serif" }
                         ],
                         show: function (param) {
                             return param.qDef.globalSettings && !param.qDef.globalSettings.use
@@ -489,7 +489,7 @@ define([], function () {
                                     { value: "bold", label: "bold" },
                                     { value: "bolder", label: "bolder" },
                                     { value: "lighter", label: "lighter" },
-                                    { value: "custom", label: "custom"}
+                                    { value: "custom", label: "custom" }
 
                                 ]
                             },
@@ -500,7 +500,7 @@ define([], function () {
                                 defaultValue: '300',
                                 expression: "optional",
                                 show: function (param) {
-                                    return param.settings.dataLabel.weight==="custom"
+                                    return param.settings.dataLabel.weight === "custom"
                                 }
                             },
                             LabelFontSize: {
@@ -517,16 +517,16 @@ define([], function () {
                                 component: "dropdown",
                                 defaultValue: 'sans-serif',
                                 options: [
-                                    {value: "Arial", label: "Arial"},
-                                    {value: "Verdana", label: "Verdana"},
-                                    {value: "Tahoma", label: "Tahoma"},
-                                    {value: "Trebuchet MS", label: "Trebuchet MS"},
-                                    {value: "Times New Roman", label: "Times New Roman"},
-                                    {value: "Georgia", label: "Georgia"},
-                                    {value: "Garamond", label: "Garamond"},
-                                    {value: "Courier New", label: "Courier New"},
-                                    {value: "Brush Script MT", label: "Brush Script MT"},
-                                    {value: "sans-serif", label: "sans-serif"}
+                                    { value: "Arial", label: "Arial" },
+                                    { value: "Verdana", label: "Verdana" },
+                                    { value: "Tahoma", label: "Tahoma" },
+                                    { value: "Trebuchet MS", label: "Trebuchet MS" },
+                                    { value: "Times New Roman", label: "Times New Roman" },
+                                    { value: "Georgia", label: "Georgia" },
+                                    { value: "Garamond", label: "Garamond" },
+                                    { value: "Courier New", label: "Courier New" },
+                                    { value: "Brush Script MT", label: "Brush Script MT" },
+                                    { value: "sans-serif", label: "sans-serif" }
                                 ]
                             },
                             LabelFontAlign: {
@@ -1109,7 +1109,7 @@ define([], function () {
                                     label: "Off"
                                 }],
                                 defaultValue: true,
-                                show: function(param){
+                                show: function (param) {
                                     return param.settings.yAxis.left.show
                                 }
                             },
@@ -1128,7 +1128,7 @@ define([], function () {
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 0,
-                                options: [{ value: 0, label: "Single" }, { value: 1, label: "Expression"}],
+                                options: [{ value: 0, label: "Single" }, { value: 1, label: "Expression" }],
                                 show: function (param) {
                                     return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on;
                                 }
@@ -1139,9 +1139,9 @@ define([], function () {
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: "decimal",
-                                options: [{ value: "decimal", label: "decimal" }, { value: "currency", label: "currency"},{ value: "percent", label: "percent"}],
+                                options: [{ value: "decimal", label: "decimal" }, { value: "currency", label: "currency" }, { value: "percent", label: "percent" }],
                                 show: function (param) {
-                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && param.settings.yAxis.left.label.inputType==0;
+                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && param.settings.yAxis.left.label.inputType == 0;
                                 }
                             },
                             yAxisLeftLabelStyleByExpression: {
@@ -1151,7 +1151,7 @@ define([], function () {
                                 expression: "optional",
                                 defaultValue: 'decimal',
                                 show: function (param) {
-                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && param.settings.yAxis.left.label.inputType==1;
+                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && param.settings.yAxis.left.label.inputType == 1;
                                 }
                             },
                             yAxisLeftLabelCurrencySymbol: {
@@ -1160,9 +1160,9 @@ define([], function () {
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: "USD",
-                                options: [{ value: "BRL", label: "BRL" }, { value: "USD", label: "USD"},{ value: "EUR", label: "EUR"},{value:"INR", label: "INR"}],
+                                options: [{ value: "BRL", label: "BRL" }, { value: "USD", label: "USD" }, { value: "EUR", label: "EUR" }, { value: "INR", label: "INR" }],
                                 show: function (param) {
-                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && settings.yAxis.left.label.style=="currency" && param.settings.yAxis.left.label.inputType==0;
+                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && settings.yAxis.left.label.style == "currency" && param.settings.yAxis.left.label.inputType == 0;
                                 }
                             },
                             yAxisLeftLabelCurrencySymbolByExpression: {
@@ -1172,7 +1172,7 @@ define([], function () {
                                 expression: "optional",
                                 defaultValue: 'USD',
                                 show: function (param) {
-                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && settings.yAxis.left.label.style=="currency" && param.settings.yAxis.left.label.inputType==1;
+                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && settings.yAxis.left.label.style == "currency" && param.settings.yAxis.left.label.inputType == 1;
                                 }
                             },
                             yAxisLeftLabelLocales: {
@@ -1181,9 +1181,9 @@ define([], function () {
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: "en-US",
-                                options: [{ value: "pt-BR", label: "pt-BR" }, { value: "en-US", label: "en-US"},{ value: "de-DE", label: "de-DE"}],
+                                options: [{ value: "pt-BR", label: "pt-BR" }, { value: "en-US", label: "en-US" }, { value: "de-DE", label: "de-DE" }],
                                 show: function (param) {
-                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && param.settings.yAxis.left.label.inputType==0;
+                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && param.settings.yAxis.left.label.inputType == 0;
                                 }
                             },
                             yAxisLeftLabelLocalesByExpression: {
@@ -1193,7 +1193,7 @@ define([], function () {
                                 expression: "optional",
                                 defaultValue: 'en-US',
                                 show: function (param) {
-                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && param.settings.yAxis.left.label.inputType==1;
+                                    return param.settings.yAxis.left.show && param.settings.yAxis.left.label && !param.settings.yAxis.left.label.on && param.settings.yAxis.left.label.inputType == 1;
                                 }
                             },
                             yAxisLeftAutoValues: {
@@ -1295,7 +1295,7 @@ define([], function () {
                                     label: "Off"
                                 }],
                                 defaultValue: true,
-                                show: function(param){
+                                show: function (param) {
                                     return param.settings.yAxis.right.show
                                 }
                             },
@@ -1314,7 +1314,7 @@ define([], function () {
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: 0,
-                                options: [{ value: 0, label: "Single" }, { value: 1, label: "Expression"}],
+                                options: [{ value: 0, label: "Single" }, { value: 1, label: "Expression" }],
                                 show: function (param) {
                                     return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on;
                                 }
@@ -1325,9 +1325,9 @@ define([], function () {
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: "decimal",
-                                options: [{ value: "decimal", label: "decimal" }, { value: "currency", label: "currency"},{ value: "percent", label: "percent"}],
+                                options: [{ value: "decimal", label: "decimal" }, { value: "currency", label: "currency" }, { value: "percent", label: "percent" }],
                                 show: function (param) {
-                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && param.settings.yAxis.right.label.inputType==0;
+                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && param.settings.yAxis.right.label.inputType == 0;
                                 }
                             },
                             yAxisRightLabelStyleByExpression: {
@@ -1337,7 +1337,7 @@ define([], function () {
                                 expression: "optional",
                                 defaultValue: 'decimal',
                                 show: function (param) {
-                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && param.settings.yAxis.right.label.inputType==1;
+                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && param.settings.yAxis.right.label.inputType == 1;
                                 }
                             },
                             yAxisRightLabelCurrencySymbol: {
@@ -1346,9 +1346,9 @@ define([], function () {
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: "USD",
-                                options: [{ value: "BRL", label: "BRL" }, { value: "USD", label: "USD"},{ value: "EUR", label: "EUR"},{value:"INR", label: "INR"}],
+                                options: [{ value: "BRL", label: "BRL" }, { value: "USD", label: "USD" }, { value: "EUR", label: "EUR" }, { value: "INR", label: "INR" }],
                                 show: function (param) {
-                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && settings.yAxis.right.label.style=="currency" && param.settings.yAxis.right.label.inputType==0;
+                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && settings.yAxis.right.label.style == "currency" && param.settings.yAxis.right.label.inputType == 0;
                                 }
                             },
                             yAxisRightLabelCurrencySymbolByExpression: {
@@ -1358,7 +1358,7 @@ define([], function () {
                                 expression: "optional",
                                 defaultValue: 'USD',
                                 show: function (param) {
-                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && settings.yAxis.right.label.style=="currency" && param.settings.yAxis.right.label.inputType==1;
+                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && settings.yAxis.right.label.style == "currency" && param.settings.yAxis.right.label.inputType == 1;
                                 }
                             },
                             yAxisRightLabelLocales: {
@@ -1367,9 +1367,9 @@ define([], function () {
                                 type: "string",
                                 component: "dropdown",
                                 defaultValue: "en-US",
-                                options: [{ value: "pt-BR", label: "pt-BR" }, { value: "en-US", label: "en-US"},{ value: "de-DE", label: "de-DE"}],
+                                options: [{ value: "pt-BR", label: "pt-BR" }, { value: "en-US", label: "en-US" }, { value: "de-DE", label: "de-DE" }],
                                 show: function (param) {
-                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && param.settings.yAxis.right.label.inputType==0;
+                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && param.settings.yAxis.right.label.inputType == 0;
                                 }
                             },
                             yAxisRightLabelLocalesByExpression: {
@@ -1379,7 +1379,7 @@ define([], function () {
                                 expression: "optional",
                                 defaultValue: 'en-US',
                                 show: function (param) {
-                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && param.settings.yAxis.right.label.inputType==1;
+                                    return param.settings.yAxis.right.show && param.settings.yAxis.right.label && !param.settings.yAxis.right.label.on && param.settings.yAxis.right.label.inputType == 1;
                                 }
                             },
                             yAxisRightAutoValues: {
@@ -1553,7 +1553,7 @@ define([], function () {
                         }
 
                     },
-                    Tooltip:{
+                    Tooltip: {
                         type: 'items',
                         label: 'Tooltip',
                         items: {
@@ -1742,6 +1742,68 @@ define([], function () {
                                 })
                 
                                 return tooltip;`
+                            },
+                        }
+                    },
+                    ObjectStyle: {
+                        type: "items",
+                        label: "Object Style",
+                        items: {
+                            ObjectStyleUse: {
+                                ref: "settings.objectStyle.use",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Use Object Style",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "Off"
+                                }],
+                                defaultValue: false
+                            },
+                            ObjectStyleIncludeObjectTitle: {
+                                ref: "settings.objectStyle.includeObjectTitle",
+                                type: "boolean",
+                                component: "switch",
+                                label: "Include Object Title",
+                                options: [{
+                                    value: true,
+                                    label: "On"
+                                }, {
+                                    value: false,
+                                    label: "Off"
+                                }],
+                                defaultValue: false
+                            },
+                            ObjectStyleBackgroundColor: {
+                                ref: "settings.objectStyle.backgroundColor",
+                                label: "Background Color",
+                                type: "string",
+                                defaultValue: 'rgba(255,255,255,0.7)',
+                                expression: "optional"
+                            },
+                            ObjectStyleBorderWidth: {
+                                ref: "settings.objectStyle.borderWidth",
+                                label: "Border Width (px)",
+                                type: "string",
+                                defaultValue: '5',
+                                expression: "optional"
+                            },
+                            ObjectStyleBorderColor: {
+                                ref: "settings.objectStyle.borderColor",
+                                label: "Border Color",
+                                type: "string",
+                                defaultValue: '#333',
+                                expression: "optional"
+                            },
+                            ObjectStyleBorderStyle: {
+                                ref: "settings.objectStyle.borderStyle",
+                                label: "Border Style",
+                                type: "string",
+                                defaultValue: 'solid',
+                                expression: "optional"
                             },
                         }
                     },

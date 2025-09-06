@@ -14,6 +14,7 @@ See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CH
 - yAxis
 - Grid Settings
 - Tooltip Settings
+- Object Style
 - Others Settings
 - Samples
 
@@ -187,6 +188,21 @@ See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CH
 
 - Use Custom Formatter: You can write a javascript function to draw the tooltip. ( see more [here](https://echarts.apache.org/en/option.html#tooltip.formatter) )
 
+### Object Style
+
+------------
+
+- Use Object Style: Enable/Disable object style settings (On/Off). Default: Off.
+
+- Include Object Title: Include the object title when applying the object style (On/Off). Default: Off.
+
+- Background Color: Background color for the object (CSS color string). Default: rgba(255,255,255,0.7). Expression: optional.
+
+- Border Width (px): Border width in pixels. Default: 5. Expression: optional.
+
+- Border Color: Border color (CSS color string). Default: #333. Expression: optional.
+
+- Border Style: Border style (e.g., solid, dashed, dotted). Default: solid. Expression: optional.
 
 
 ### Others Settings

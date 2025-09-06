@@ -17,9 +17,9 @@ define([
             });
         }
 
-        function getDimensionArrayDistinct(layout){
+        function getDimensionArrayDistinct(layout) {
 
-            dimension=getDimensionArray(layout);
+            dimension = getDimensionArray(layout);
 
             return [...new Set(dimension)]
 
@@ -438,12 +438,12 @@ define([
                 dataZoomProperty.id = 'dataZoomX';
                 dataZoomProperty.xAxisIndex = 0;
 
-                if(!layout.settings.others.dataZoomPosition || layout.settings.others.dataZoomPosition=='start'){
+                if (!layout.settings.others.dataZoomPosition || layout.settings.others.dataZoomPosition == 'start') {
                     dataZoomProperty.startValue = 0;
                     dataZoomProperty.endValue = visibleItens
-                }else{
+                } else {
                     dataZoomProperty.startValue = qtdDimensionValues;
-                    dataZoomProperty.endValue = qtdDimensionValues-visibleItens
+                    dataZoomProperty.endValue = qtdDimensionValues - visibleItens
                 }
 
 
@@ -805,6 +805,47 @@ define([
 
         }
 
+
+
+        function setObjectStyle($element, layout) {
+            const objectStyle = layout.settings?.objectStyle;
+
+            if(!objectStyle)
+                return;
+
+            const objectStyleClassName = `customBarChart-${layout.qInfo.qId}`;
+            const objectStyleClassNameWithDot = `.${objectStyleClassName}`;
+
+            $(objectStyleClassNameWithDot).removeClass(objectStyleClassName)
+
+            if(!objectStyle.use)
+                return;
+
+            var targetElement = null;
+            if(objectStyle.includeObjectTitle)
+                targetElement = $(`.qv-object-${layout.qInfo.qId}`)
+            else
+                targetElement =  $element
+
+            // Add the class to the target element
+            targetElement.addClass(objectStyleClassName);
+
+            const style = `
+                ${objectStyleClassNameWithDot} {
+                    background-color: ${objectStyle.backgroundColor} !important;
+                    border-color: ${objectStyle.borderColor} !important;
+                    border-width: ${objectStyle.borderWidth}px !important;
+                    border-style: ${objectStyle.borderStyle} !important;
+                }
+            `;
+
+            $('<style>')
+                .attr('id', objectStyleClassName)
+                .text(style)
+                .appendTo('head');
+
+        }
+
         return {
 
             initialProperties: {
@@ -820,6 +861,9 @@ define([
             definition: props,
             support: { snapshot: true, export: true, exportData: true },
             paint: async function ($element, layout) {
+
+
+                setObjectStyle($element, layout) 
 
                 echarts.dispose($element[0]);
 
