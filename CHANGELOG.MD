@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
+## [2.18.0] - 2025-09-06
+
+### Changed
+
+- e-charts version updated to 6.0.0;
+
 
 ## [2.17.0] - 2023-06-08
 
