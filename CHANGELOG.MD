@@ -20,6 +20,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.17.0] - 2023-06-08
 
+### Added
+
+- Add option to chose between 'start' or 'end' to DataZoom propertie. 
 
 
 ## [2.16.0] - 2023-05-10
