@@ -196,13 +196,13 @@ See the changes [here](https://github.com/WedersonCD/customBarChart/blob/main/CH
 
 - Include Object Title: Include the object title when applying the object style (On/Off). Default: Off.
 
-- Background Color: Background color for the object (CSS color string). Default: rgba(255,255,255,0.7). Expression: optional.
+- Background Color: Background color for the object (CSS color string). Default: rgba(255,255,255,0.7).
 
-- Border Width (px): Border width in pixels. Default: 5. Expression: optional.
+- Border Width (px): Border width in pixels. Default: 5.
 
-- Border Color: Border color (CSS color string). Default: #333. Expression: optional.
+- Border Color: Border color (CSS color string). Default: #333.
 
-- Border Style: Border style (e.g., solid, dashed, dotted). Default: solid. Expression: optional.
+- Border Style: Border style (e.g., solid, dashed, dotted). Default: solid.
 
 
 ### Others Settings
